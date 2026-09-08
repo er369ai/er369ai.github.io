@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# /cv/ carries its own noindex meta tag. It is deliberately NOT disallowed here —
+# blocking the crawler would stop it ever reading that tag, and Google can then
+# index the bare URL anyway, with no content and no way to remove it.
+
+Sitemap: https://er369ai.github.io/sitemap.xml
