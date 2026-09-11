@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Örnek Emlak — İlan Portföyü Demo | Erfan Boostan</title>
+<meta name="description" content="Emlak ofisleri için ilan portföyü sitesi demosu. Filtreleme, ilan detayı ve yönetim paneli.">
+<!--
+  DEMO shown to estate agents, usually on a phone, in person.
+
+  Sister page to /galeri/. Same two arguments, different nouns: filters that
+  narrow a real portfolio, and a panel where a sold listing leaves the site in
+  one tap. Those are the two complaints estate agents actually voice.
+
+  Bilingual on purpose. Girne agencies sell to British, Russian and Israeli
+  buyers, so an EN/TR toggle is not decoration -- it is the thing they need and
+  cannot do on a Facebook page. It also lets Erfan run the whole demo in English
+  if the room is easier that way.
+
+  LANGUAGE-SWITCH TRAP, learned the hard way on the portfolio site: a bare
+  `[data-lang]{display:none}` is only specificity 0,1,0, so any later class rule
+  that sets `display` overrides it and BOTH languages render at once. The hide
+  rule below must keep `:not(.on)` and `!important`.
+
+  Listings are invented and the banner says so. Showing an agent a fake-but-real
+  looking rival agency would be dishonest and dies the moment they search it.
+-->
+<style>
+  :root{
+    --bg:#0e1116; --surface:#161b21; --raised:#1d242c; --line:#28313b;
+    --ink:#eef3f8; --dim:#90a0b0; --accent:#6fc8ff; --accent-ink:#07131d;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  /* Keep :not(.on) and !important -- see the note at the top of this file. */
+  [data-lang]:not(.on){display:none !important}
+  .demo-bar{background:var(--accent);color:var(--accent-ink);text-align:center;
+            padding:7px 12px;font-size:13px;font-weight:700}
+  .demo-bar span{font-weight:500}
+  header{border-bottom:1px solid var(--line);background:var(--surface)}
+  .bar{max-width:1100px;margin:0 auto;padding:14px 16px;
+       display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:19px;letter-spacing:-.3px}
+  .logo b{color:var(--accent)}
+  .spacer{margin-left:auto}
+  .tabs{display:flex;gap:6px}
+  .tab,.lang{background:transparent;border:1px solid var(--line);color:var(--dim);
+       padding:8px 15px;border-radius:99px;cursor:pointer;font-size:14px;font-family:inherit}
+  .tab[aria-selected="true"],.lang[aria-pressed="true"]{background:var(--accent);
+       border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+  .lang{padding:8px 12px;font-weight:600}
+  main{max-width:1100px;margin:0 auto;padding:18px 16px 70px}
+
+  .filters{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+           background:var(--surface);border:1px solid var(--line);
+           border-radius:var(--radius);padding:14px}
+  .f label{display:block;font-size:12px;color:var(--dim);margin-bottom:5px}
+  select,input[type=search]{width:100%;background:var(--raised);color:var(--ink);
+       border:1px solid var(--line);border-radius:8px;padding:9px 10px;
+       font-size:14px;font-family:inherit}
+  .rangeval{font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .countbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+            margin:14px 2px 12px;font-size:14px;color:var(--dim)}
+  .countbar b{color:var(--ink)}
+  .reset{margin-left:auto;background:none;border:1px solid var(--line);color:var(--dim);
+         border-radius:99px;padding:6px 14px;cursor:pointer;font-size:13px;font-family:inherit}
+
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+        overflow:hidden;display:flex;flex-direction:column;cursor:pointer;position:relative}
+  .card:hover{border-color:#3a4652}
+  .tag{position:absolute;top:10px;left:10px;background:rgba(7,19,29,.82);
+       color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.05em;
+       padding:4px 9px;border-radius:99px;text-transform:uppercase}
+  .thumb{aspect-ratio:4/3;width:100%;display:block;background:var(--raised)}
+  .cbody{padding:11px 13px 13px;display:flex;flex-direction:column;gap:4px;flex:1}
+  .ctitle{font-weight:700;font-size:15px}
+  .cmeta{color:var(--dim);font-size:13px}
+  .cprice{margin-top:auto;padding-top:8px;color:var(--accent);font-weight:800;font-size:17px}
+  .empty{text-align:center;color:var(--dim);padding:50px 20px}
+
+  dialog{border:1px solid var(--line);background:var(--surface);color:var(--ink);
+         border-radius:var(--radius);padding:0;max-width:560px;width:92vw}
+  dialog::backdrop{background:rgba(0,0,0,.72)}
+  .dhead{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line)}
+  .dhead b{font-size:16px}
+  .dclose{margin-left:auto;background:none;border:none;color:var(--dim);
+          font-size:24px;cursor:pointer;line-height:1}
+  .dbody{padding:15px}
+  .specs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+  .spec{background:var(--raised);border-radius:9px;padding:9px 11px}
+  .spec span{display:block;color:var(--dim);font-size:12px}
+  .spec b{font-size:15px}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
+  th{color:var(--dim);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  .gone{opacity:.4}
+  .btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;
+       padding:8px 14px;font-weight:700;cursor:pointer;font-size:13px;font-family:inherit}
+  .btn.ghost{background:none;border:1px solid var(--line);color:var(--dim);font-weight:500}
+  .panelnote{background:var(--raised);border:1px solid var(--line);border-radius:var(--radius);
+             padding:13px 15px;margin-bottom:14px;font-size:14px;color:var(--dim)}
+  .panelnote b{color:var(--ink)}
+  footer{border-top:1px solid var(--line);margin-top:36px;padding:20px 16px;
+         text-align:center;color:var(--dim);font-size:13px}
+  footer a{color:var(--accent)}
+  @media(max-width:560px){ .tabs{flex:1} .tab{flex:1} .spacer{margin-left:0} }
+</style>
+
+<div class="demo-bar">
+  <span data-lang="tr" class="on">DEMO — örnek ilanlar. Gerçek bir emlak ofisi değildir.</span>
+  <span data-lang="en">DEMO — sample listings. Not a real estate agency.</span>
+</div>
+
+<header>
+  <div class="bar">
+    <div class="logo">ÖRNEK <b>EMLAK</b></div>
+    <div class="spacer"></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-view="site">
+        <span data-lang="tr" class="on">İlanlar</span><span data-lang="en">Listings</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-view="panel">
+        <span data-lang="tr" class="on">Yönetim Paneli</span><span data-lang="en">Admin Panel</span></button>
+    </div>
+    <button class="lang" id="lang" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<main>
+  <section id="site">
+    <div class="filters">
+      <div class="f"><label for="q"><span data-lang="tr" class="on">Ara</span><span data-lang="en">Search</span></label>
+        <input id="q" type="search" placeholder="…"></div>
+      <div class="f"><label for="tip"><span data-lang="tr" class="on">İlan tipi</span><span data-lang="en">Type</span></label>
+        <select id="tip"></select></div>
+      <div class="f"><label for="bolge"><span data-lang="tr" class="on">Bölge</span><span data-lang="en">Area</span></label>
+        <select id="bolge"></select></div>
+      <div class="f"><label for="oda"><span data-lang="tr" class="on">Oda sayısı</span><span data-lang="en">Rooms</span></label>
+        <select id="oda"></select></div>
+      <div class="f"><label for="durum"><span data-lang="tr" class="on">Satılık / Kiralık</span><span data-lang="en">Sale / Rent</span></label>
+        <select id="durum"></select></div>
+      <div class="f"><label for="fiyat">
+          <span data-lang="tr" class="on">Fiyat — en fazla</span><span data-lang="en">Max price</span>
+          <span class="rangeval" id="fiyatv"></span></label>
+        <input id="fiyat" type="range"></div>
+      <div class="f"><label for="sirala"><span data-lang="tr" class="on">Sırala</span><span data-lang="en">Sort</span></label>
+        <select id="sirala">
+          <option value="yeni" data-tr="Önce yeni eklenen" data-en="Newest first"></option>
+          <option value="ucuz" data-tr="Fiyat: düşükten yükseğe" data-en="Price: low to high"></option>
+          <option value="pahali" data-tr="Fiyat: yüksekten düşüğe" data-en="Price: high to low"></option>
+          <option value="m2" data-tr="Alan: büyükten küçüğe" data-en="Area: largest first"></option>
+        </select></div>
+    </div>
+    <div class="countbar">
+      <span><b id="count">0</b>
+        <span data-lang="tr" class="on">ilan listeleniyor</span><span data-lang="en">listings shown</span></span>
+      <button class="reset" id="reset">
+        <span data-lang="tr" class="on">Filtreleri temizle</span><span data-lang="en">Clear filters</span></button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <span data-lang="tr" class="on">Bu filtrelere uyan ilan yok.</span>
+      <span data-lang="en">No listings match these filters.</span></div>
+  </section>
+
+  <section id="panel" hidden>
+    <div class="panelnote">
+      <span data-lang="tr" class="on"><b>Ofisin kendi paneli.</b> İlan satıldığında veya kiralandığında
+        tek tıkla siteden kalkar, yeni ilan anında en üstte görünür. Kimseye haber vermeniz gerekmez.
+        <em>Bu demoda değişiklikler sadece bu sekmede tutulur.</em></span>
+      <span data-lang="en"><b>Your own panel.</b> When a property is sold or let, one tap removes it
+        from the site; a new listing appears at the top immediately. You never have to ask anyone.
+        <em>In this demo, changes are kept only in this tab.</em></span>
+    </div>
+    <table>
+      <thead><tr>
+        <th><span data-lang="tr" class="on">İlan</span><span data-lang="en">Listing</span></th>
+        <th><span data-lang="tr" class="on">Bölge</span><span data-lang="en">Area</span></th>
+        <th><span data-lang="tr" class="on">Fiyat</span><span data-lang="en">Price</span></th>
+        <th><span data-lang="tr" class="on">Durum</span><span data-lang="en">Status</span></th>
+        <th></th></tr></thead>
+      <tbody id="ptbody"></tbody>
+    </table>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <div class="dhead"><b id="dtitle"></b>
+    <button class="dclose" id="dclose" aria-label="Kapat">&times;</button></div>
+  <div class="dbody"><div id="dimg"></div><div class="specs" id="dspecs"></div></div>
+</dialog>
+
+<footer>
+  <span data-lang="tr" class="on">Bu sayfa bir <b>demo</b>dur — örnek ilanlarla hazırlanmıştır.</span>
+  <span data-lang="en">This page is a <b>demo</b>, built with sample listings.</span><br>
+  <span data-lang="tr" class="on">Yapan:</span><span data-lang="en">Built by</span>
+  <a href="https://er369ai.github.io">Erfan Boostan</a> · Girne, KKTC
+</footer>
+
+<script>
+// Invented listings. Nothing scraped from a real agency's portfolio.
+const P = [
+  {id:1, tr:"Deniz manzaralı 2+1 daire", en:"2+1 apartment with sea view", tip:"Daire", bolge:"Girne", oda:"2+1", durum:"Satılık", fiyat:135000, m2:95,  yil:2021, h:200},
+  {id:2, tr:"Merkezde 3+1 daire",        en:"3+1 apartment in the centre", tip:"Daire", bolge:"Lefkoşa", oda:"3+1", durum:"Satılık", fiyat:118000, m2:120, yil:2018, h:150},
+  {id:3, tr:"Havuzlu müstakil villa",    en:"Detached villa with pool",    tip:"Villa", bolge:"Girne", oda:"4+1", durum:"Satılık", fiyat:395000, m2:240, yil:2022, h:95},
+  {id:4, tr:"Öğrenciye uygun 1+1",       en:"1+1, ideal for students",     tip:"Daire", bolge:"Lefkoşa", oda:"1+1", durum:"Kiralık", fiyat:450,    m2:55,  yil:2019, h:38},
+  {id:5, tr:"Long Beach'te 2+1",         en:"2+1 at Long Beach",           tip:"Daire", bolge:"İskele", oda:"2+1", durum:"Satılık", fiyat:96000,  m2:80,  yil:2023, h:185},
+  {id:6, tr:"Bahçeli ikiz villa",        en:"Semi-detached villa, garden", tip:"Villa", bolge:"Gazimağusa", oda:"3+1", durum:"Satılık", fiyat:240000, m2:175, yil:2020, h:120},
+  {id:7, tr:"Eşyalı stüdyo daire",       en:"Furnished studio flat",       tip:"Daire", bolge:"Girne", oda:"Stüdyo", durum:"Kiralık", fiyat:380, m2:42, yil:2017, h:25},
+  {id:8, tr:"Şehir merkezinde dükkân",   en:"Shop unit in the town centre",tip:"İşyeri",bolge:"Lefkoşa", oda:"—",   durum:"Kiralık", fiyat:900,    m2:110, yil:2015, h:265},
+  {id:9, tr:"Yatırımlık arsa",           en:"Investment land plot",        tip:"Arsa",  bolge:"İskele", oda:"—",   durum:"Satılık", fiyat:72000,  m2:650, yil:0,    h:75},
+  {id:10,tr:"Site içinde 2+1",           en:"2+1 in a managed complex",    tip:"Daire", bolge:"Gazimağusa", oda:"2+1", durum:"Kiralık", fiyat:520, m2:88, yil:2021, h:210},
+  {id:11,tr:"Denize sıfır penthouse",    en:"Seafront penthouse",          tip:"Daire", bolge:"Girne", oda:"3+1", durum:"Satılık", fiyat:310000, m2:160, yil:2023, h:172},
+  {id:12,tr:"Köyde taş ev",              en:"Stone house in a village",    tip:"Villa", bolge:"Güzelyurt", oda:"2+1", durum:"Satılık", fiyat:88000, m2:130, yil:1998, h:30},
+];
+
+let lang = "tr";
+const T = (k) => ({
+  sold:  {tr:"Satıldı / Kiralandı", en:"Sold / Let"},
+  live:  {tr:"Sitede", en:"Live"},
+  mark:  {tr:"Siteden kaldır", en:"Remove from site"},
+  back:  {tr:"Geri koy", en:"Put back"},
+  all:   {tr:"Tümü", en:"All"},
+  area:  {tr:"Alan", en:"Area"},
+  rooms: {tr:"Oda", en:"Rooms"},
+  year:  {tr:"Yapım yılı", en:"Year built"},
+  price: {tr:"Fiyat", en:"Price"},
+  type:  {tr:"Tip", en:"Type"},
+  region:{tr:"Bölge", en:"Area"},
+})[k][lang];
+
+const nf = n => new Intl.NumberFormat(lang === "tr" ? "tr-TR" : "en-GB").format(n);
+const money = (n, durum) => "£" + nf(n) + (durum === "Kiralık" ? (lang==="tr"?" / ay":" / mo") : "");
+const $ = s => document.querySelector(s);
+const name = p => p[lang];
+
+function photo(p, big){
+  return `<svg class="thumb" viewBox="0 0 320 240" role="img" aria-label="${name(p)}"
+      style="${big?'aspect-ratio:16/10':''}">
+    <defs><linearGradient id="p${p.id}${big?'b':''}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="hsl(${p.h} 30% 26%)"/>
+      <stop offset="1" stop-color="hsl(${p.h} 28% 14%)"/></linearGradient></defs>
+    <rect width="320" height="240" fill="url(#p${p.id}${big?'b':''})"/>
+    <g fill="hsl(${p.h} 38% 58%)" opacity=".9">
+      <path d="M160 78 74 140h22v56h48v-38h32v38h48v-56h22z"/>
+      <rect x="180" y="150" width="26" height="20" rx="3" opacity=".55"/>
+      <rect x="114" y="150" width="26" height="20" rx="3" opacity=".55"/>
+    </g>
+    <text x="160" y="216" text-anchor="middle" fill="#fff" opacity=".5"
+          font-family="system-ui,sans-serif" font-size="13">${p.bolge} · ${p.m2} m²</text>
+  </svg>`;
+}
+
+let gone = new Set();
+const uniq = k => [...new Set(P.map(x => x[k]))].filter(v => v !== "—").sort();
+
+function fillSelect(el, values){
+  const cur = el.value;
+  el.innerHTML = `<option value="">${T("all")}</option>` + values.map(v=>`<option>${v}</option>`).join("");
+  el.value = cur;
+}
+function fillSelects(){
+  fillSelect($("#tip"), uniq("tip"));
+  fillSelect($("#bolge"), uniq("bolge"));
+  fillSelect($("#oda"), uniq("oda"));
+  fillSelect($("#durum"), uniq("durum"));
+  document.querySelectorAll("#sirala option").forEach(o => o.textContent = o.dataset[lang]);
+}
+const fMax = 400000;
+Object.assign($("#fiyat"), {min:0, max:fMax, value:fMax, step:5000});
+
+function current(){
+  const q = $("#q").value.trim().toLocaleLowerCase(lang === "tr" ? "tr" : "en");
+  const [tip,bolge,oda,durum] = ["#tip","#bolge","#oda","#durum"].map(s => $(s).value);
+  const fiyat = +$("#fiyat").value;
+  let out = P.filter(p => !gone.has(p.id)
+    && (!tip || p.tip === tip) && (!bolge || p.bolge === bolge)
+    && (!oda || p.oda === oda) && (!durum || p.durum === durum)
+    && p.fiyat <= fiyat
+    && (!q || name(p).toLocaleLowerCase(lang==="tr"?"tr":"en").includes(q)));
+  const s = $("#sirala").value;
+  if (s==="ucuz")   out.sort((a,b)=>a.fiyat-b.fiyat);
+  if (s==="pahali") out.sort((a,b)=>b.fiyat-a.fiyat);
+  if (s==="m2")     out.sort((a,b)=>b.m2-a.m2);
+  if (s==="yeni")   out.sort((a,b)=>b.id-a.id);
+  return out;
+}
+
+function render(){
+  $("#fiyatv").textContent = "£" + nf($("#fiyat").value);
+  const list = current();
+  $("#count").textContent = list.length;
+  $("#empty").hidden = list.length > 0;
+  $("#grid").innerHTML = list.map(p => `
+    <article class="card" data-id="${p.id}" tabindex="0">
+      <span class="tag">${p.durum}</span>
+      ${photo(p)}
+      <div class="cbody">
+        <div class="ctitle">${name(p)}</div>
+        <div class="cmeta">${p.bolge} · ${p.oda} · ${p.m2} m²</div>
+        <div class="cprice">${money(p.fiyat, p.durum)}</div>
+      </div>
+    </article>`).join("");
+  $("#ptbody").innerHTML = P.map(p => {
+    const off = gone.has(p.id);
+    return `<tr class="${off?'gone':''}">
+      <td>${name(p)}</td><td>${p.bolge}</td><td>${money(p.fiyat,p.durum)}</td>
+      <td>${off ? T("sold") : T("live")}</td>
+      <td style="text-align:right"><button class="btn ${off?'ghost':''}" data-toggle="${p.id}">
+        ${off ? T("back") : T("mark")}</button></td></tr>`;
+  }).join("");
+}
+
+function setLang(next){
+  lang = next;
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-lang]").forEach(el =>
+    el.classList.toggle("on", el.dataset.lang === lang));
+  $("#lang").textContent = lang === "tr" ? "EN" : "TR";
+  $("#lang").setAttribute("aria-pressed", String(lang === "en"));
+  fillSelects(); render();
+}
+
+document.addEventListener("input", e => { if (e.target.closest(".filters")) render(); });
+$("#sirala").addEventListener("change", render);
+$("#lang").addEventListener("click", () => setLang(lang === "tr" ? "en" : "tr"));
+$("#reset").addEventListener("click", () => {
+  $("#q").value=""; ["#tip","#bolge","#oda","#durum"].forEach(s=>$(s).value="");
+  $("#fiyat").value=fMax; $("#sirala").value="yeni"; render();
+});
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-toggle]");
+  if (t){ const id=+t.dataset.toggle; gone.has(id)?gone.delete(id):gone.add(id); render(); return; }
+  const tab = e.target.closest(".tab");
+  if (tab){
+    document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",String(b===tab)));
+    $("#site").hidden  = tab.dataset.view !== "site";
+    $("#panel").hidden = tab.dataset.view !== "panel";
+    return;
+  }
+  const card = e.target.closest(".card");
+  if (card) open(+card.dataset.id);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && e.target.classList?.contains("card")) open(+e.target.dataset.id);
+});
+function open(id){
+  const p = P.find(x=>x.id===id);
+  $("#dtitle").textContent = name(p);
+  $("#dimg").innerHTML = photo(p, true);
+  $("#dspecs").innerHTML = [
+    [T("region"), p.bolge], [T("type"), p.tip],
+    [T("rooms"), p.oda], [T("area"), p.m2 + " m²"],
+    [T("year"), p.yil || "—"], [T("price"), money(p.fiyat, p.durum)],
+  ].map(([k,v])=>`<div class="spec"><span>${k}</span><b>${v}</b></div>`).join("");
+  $("#dlg").showModal();
+}
+$("#dclose").addEventListener("click", ()=>$("#dlg").close());
+$("#dlg").addEventListener("click", e=>{ if(e.target.id==="dlg") $("#dlg").close(); });
+
+setLang("tr");
+</script>
+</html>
