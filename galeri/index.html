@@ -6,212 +6,334 @@
 <title>Örnek Oto Galeri — Araç Portföyü Demo | Erfan Boostan</title>
 <meta name="description" content="Oto galeriler için araç portföyü sitesi demosu. Filtreleme, araç detayı ve yönetim paneli.">
 <!--
-  DEMO for showing to car dealers on a phone, in person.
+  DEMO shown to car dealers on a phone, in person, in their own gallery.
 
-  It must NOT look like a real dealership, because presenting a fake business as
-  real is dishonest and would poison the pitch the moment someone searched the
-  name. So the brand is deliberately "Örnek Oto Galeri" (Example Car Gallery),
-  the demo banner is always visible, and every vehicle is invented.
+  HONESTY: it must NOT look like a real dealership. Presenting a fake business
+  as real would poison the pitch the second someone searched the name. So the
+  brand is "Örnek Oto Galeri" (Example Car Gallery), the demo notice stays
+  visible, the phone number is an obvious placeholder, and every vehicle is
+  invented.
 
-  Photos are inline SVG, not stock or scraped dealer images: it has to work with
-  no network on a phone in someone's office, and lifting a real gallery's photos
-  to sell to their competitor is exactly the wrong first impression.
+  PHOTOGRAPHS: real, from Wikimedia Commons under CC0/CC-BY/CC-BY-SA, committed
+  into img/ rather than hotlinked so the page still works on a phone with no
+  signal in someone's office. See fetch_photos.py and credits.json; the footer
+  carries the attribution the licences require.
 
-  The point being demonstrated is not the styling. It is: filters that actually
-  narrow the list, and a panel where a sold car disappears from the site in one
-  tap. Those are the two things dealers complained about.
+  The first version drew each car as the same cartoon silhouette in a different
+  hue with the brand name typed over it. It was honest and it worked offline,
+  and it also told every dealer instantly that none of it was real -- a dealer's
+  whole job is looking at photographs of cars.
+
+  DESIGN: a printed stock sheet, not a dashboard. White ground, hairline rules
+  instead of floating cards and shadows, condensed signage type from the
+  vehicle-plate vernacular, and the price as the one loud thing on the page,
+  because price is what everyone looks at first. Prices in £ -- sterling is the
+  currency the North Cyprus car market actually quotes in.
+
+  The point being demonstrated is not the styling. It is: filters that really
+  narrow the list, and a sold car leaving the site in one tap. Those are the two
+  things dealers complained about.
 -->
 <style>
+  /* Barlow, self-hosted. latin-ext is NOT optional: ş ğ ı İ live there, and
+     without it every other Turkish word falls back mid-sentence. */
+  @font-face{font-family:Barlow;font-weight:400;font-style:normal;font-display:swap;
+    src:url(font/bar-400-lat.woff2) format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+2000-206F,U+2122,U+2191,U+2193,U+2212,U+FEFF,U+FFFD}
+  @font-face{font-family:Barlow;font-weight:400;font-style:normal;font-display:swap;
+    src:url(font/bar-400-ext.woff2) format('woff2');
+    unicode-range:U+0100-02BA,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:Barlow;font-weight:500;font-style:normal;font-display:swap;
+    src:url(font/bar-500-lat.woff2) format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2122,U+2212,U+FEFF,U+FFFD}
+  @font-face{font-family:Barlow;font-weight:500;font-style:normal;font-display:swap;
+    src:url(font/bar-500-ext.woff2) format('woff2');
+    unicode-range:U+0100-02BA,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:Barlow;font-weight:600;font-style:normal;font-display:swap;
+    src:url(font/bar-600-lat.woff2) format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2122,U+2212,U+FEFF,U+FFFD}
+  @font-face{font-family:Barlow;font-weight:600;font-style:normal;font-display:swap;
+    src:url(font/bar-600-ext.woff2) format('woff2');
+    unicode-range:U+0100-02BA,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Barlow SC';font-weight:600;font-style:normal;font-display:swap;
+    src:url(font/bsc-600-lat.woff2) format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2122,U+2212,U+FEFF,U+FFFD}
+  @font-face{font-family:'Barlow SC';font-weight:600;font-style:normal;font-display:swap;
+    src:url(font/bsc-600-ext.woff2) format('woff2');
+    unicode-range:U+0100-02BA,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Barlow SC';font-weight:700;font-style:normal;font-display:swap;
+    src:url(font/bsc-700-lat.woff2) format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+2122,U+2212,U+FEFF,U+FFFD}
+  @font-face{font-family:'Barlow SC';font-weight:700;font-style:normal;font-display:swap;
+    src:url(font/bsc-700-ext.woff2) format('woff2');
+    unicode-range:U+0100-02BA,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
   :root{
-    --bg:#0f1216; --surface:#171c22; --raised:#1e252d; --line:#2a333d;
-    --ink:#eef3f8; --dim:#93a3b3; --accent:#ffb340; --accent-ink:#1a1206;
-    --good:#5fd39a; --radius:12px;
+    --paper:#fff; --wash:#f2f2ef; --ink:#16181a; --soft:#6c7276;
+    --rule:#000; --hair:#d8d8d3; --red:#c8102e;
+    --wrap:1080px;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-       font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-  a{color:inherit}
-  .demo-bar{background:var(--accent);color:var(--accent-ink);text-align:center;
-            padding:7px 12px;font-size:13px;font-weight:700}
-  .demo-bar span{font-weight:500}
-  header{border-bottom:1px solid var(--line);background:var(--surface)}
-  .bar{max-width:1100px;margin:0 auto;padding:14px 16px;
-       display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .logo{font-weight:800;font-size:19px;letter-spacing:-.3px}
-  .logo b{color:var(--accent)}
-  .tabs{margin-left:auto;display:flex;gap:6px}
-  .tab{background:transparent;border:1px solid var(--line);color:var(--dim);
-       padding:8px 15px;border-radius:99px;cursor:pointer;font-size:14px;font-family:inherit}
-  .tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);
-       color:var(--accent-ink);font-weight:700}
-  main{max-width:1100px;margin:0 auto;padding:18px 16px 70px}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font:400 16px/1.5 Barlow,system-ui,sans-serif;
+       font-variant-numeric:tabular-nums}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 18px}
+  button,select,input{font:inherit;color:inherit}
 
-  .filters{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-           background:var(--surface);border:1px solid var(--line);
-           border-radius:var(--radius);padding:14px;margin-bottom:8px}
-  .f label{display:block;font-size:12px;color:var(--dim);margin-bottom:5px}
-  select,input[type=search]{width:100%;background:var(--raised);color:var(--ink);
-       border:1px solid var(--line);border-radius:8px;padding:9px 10px;
-       font-size:14px;font-family:inherit}
-  .rangeval{font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums}
-  input[type=range]{width:100%;accent-color:var(--accent)}
-  .countbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-            margin:14px 2px 12px;font-size:14px;color:var(--dim)}
-  .countbar b{color:var(--ink)}
-  .reset{margin-left:auto;background:none;border:1px solid var(--line);color:var(--dim);
-         border-radius:99px;padding:6px 14px;cursor:pointer;font-size:13px;font-family:inherit}
+  /* ---- masthead: name and phone, the way a dealer would want it ---- */
+  .top{background:var(--rule);color:#fff}
+  .top .wrap{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+             padding-top:15px;padding-bottom:15px}
+  .mark{font:700 27px/1 'Barlow SC',Barlow,sans-serif;letter-spacing:-.01em}
+  .mark i{font-style:normal;color:var(--red)}
+  .where{color:#9fa5a8;font-size:14px}
+  .ring{margin-left:auto;text-align:right;line-height:1.25}
+  .ring a{font:700 22px/1 'Barlow SC',Barlow,sans-serif;color:#fff;
+          text-decoration:none;letter-spacing:.01em}
+  .ring span{display:block;color:#9fa5a8;font-size:12.5px}
 
-  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-        overflow:hidden;display:flex;flex-direction:column;cursor:pointer}
-  .card:hover{border-color:#3d4956}
-  .thumb{aspect-ratio:4/3;width:100%;display:block;background:var(--raised)}
-  .cbody{padding:11px 13px 13px;display:flex;flex-direction:column;gap:4px;flex:1}
-  .ctitle{font-weight:700;font-size:15px}
-  .cmeta{color:var(--dim);font-size:13px}
-  .cprice{margin-top:auto;padding-top:8px;color:var(--accent);font-weight:800;font-size:17px}
-  .empty{text-align:center;color:var(--dim);padding:50px 20px}
+  .notice{background:var(--wash);border-bottom:1px solid var(--hair);
+          color:#4d5356;font-size:13.5px}
+  .notice .wrap{padding:9px 18px}
+  .notice b{color:var(--ink);font-weight:600}
 
-  dialog{border:1px solid var(--line);background:var(--surface);color:var(--ink);
-         border-radius:var(--radius);padding:0;max-width:560px;width:92vw}
-  dialog::backdrop{background:rgba(0,0,0,.72)}
-  .dhead{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line)}
-  .dhead b{font-size:16px}
-  .dclose{margin-left:auto;background:none;border:none;color:var(--dim);
-          font-size:24px;cursor:pointer;line-height:1}
-  .dbody{padding:15px}
-  .specs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
-  .spec{background:var(--raised);border-radius:9px;padding:9px 11px}
-  .spec span{display:block;color:var(--dim);font-size:12px}
-  .spec b{font-size:15px}
+  /* ---- view switch ---- */
+  .views{border-bottom:2px solid var(--rule);background:var(--paper)}
+  .views .wrap{display:flex;gap:0;padding:0 18px}
+  .view{background:none;border:0;border-bottom:4px solid transparent;
+        padding:13px 2px;margin-right:28px;cursor:pointer;color:var(--soft);
+        font-weight:500;font-size:15.5px}
+  .view[aria-selected=true]{color:var(--ink);border-bottom-color:var(--red);
+        font-weight:600}
 
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
-  th{color:var(--dim);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
-  .sold{opacity:.4}
-  .btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;
-       padding:8px 14px;font-weight:700;cursor:pointer;font-size:13px;font-family:inherit}
-  .btn.ghost{background:none;border:1px solid var(--line);color:var(--dim);font-weight:500}
-  .panelnote{background:var(--raised);border:1px solid var(--line);border-radius:var(--radius);
-             padding:13px 15px;margin-bottom:14px;font-size:14px;color:var(--dim)}
-  .panelnote b{color:var(--ink)}
-  footer{border-top:1px solid var(--line);margin-top:36px;padding:20px 16px;
-         text-align:center;color:var(--dim);font-size:13px}
-  footer a{color:var(--accent)}
-  @media(max-width:560px){ .tabs{width:100%} .tab{flex:1} }
+  /* ---- filters: a form, not a card ---- */
+  .filters{border-bottom:1px solid var(--hair);background:var(--wash)}
+  .fgrid{display:grid;gap:13px 18px;padding:15px 18px;
+         grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+         max-width:var(--wrap);margin:0 auto}
+  .f label{display:block;font-size:12.5px;color:var(--soft);margin-bottom:4px}
+  .f select,.f input[type=search]{width:100%;background:var(--paper);
+      border:1px solid #b9bab5;border-radius:3px;padding:8px 9px;font-size:15px}
+  .f input[type=range]{width:100%;accent-color:var(--red);margin:6px 0 0}
+  .fval{float:right;color:var(--ink);font-weight:600;font-size:12.5px}
+  .fbar{max-width:var(--wrap);margin:0 auto;padding:0 18px 14px;
+        display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .tally{font:700 19px/1 'Barlow SC',Barlow,sans-serif}
+  .tally span{font-weight:400;font-size:15px;color:var(--soft);
+              font-family:Barlow,sans-serif}
+  .clear{margin-left:auto;background:none;border:0;padding:6px 0;
+         color:var(--red);cursor:pointer;font-weight:500;font-size:14.5px;
+         border-bottom:1px solid currentColor}
+
+  /* ---- the stock list: rules, not floating cards ---- */
+  .stock{list-style:none;margin:0;padding:0}
+  .item{border-bottom:1px solid var(--hair);cursor:pointer;
+        display:grid;gap:0 20px;padding:18px 0;
+        grid-template-columns:minmax(0,300px) minmax(0,1fr)}
+  .item:first-child{border-top:0}
+  .item:hover .name,.item:focus-visible .name{color:var(--red)}
+  .item:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .shot{margin:0;background:var(--wash);aspect-ratio:16/10;overflow:hidden}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block}
+  .facts{display:flex;flex-direction:column;min-width:0}
+  .head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .name{font:600 19px/1.25 Barlow,sans-serif;margin:0}
+  .name em{font-style:normal;font-weight:400;color:var(--soft);display:block;
+           font-size:16px;margin-top:2px}
+  .price{margin-left:auto;color:var(--red);white-space:nowrap;
+         font:700 31px/1 'Barlow SC',Barlow,sans-serif}
+  /* three separate facts, so three ruled cells -- not "A · B · C" */
+  .spex{display:flex;margin-top:14px;border-top:1px solid var(--hair)}
+  .spex div{flex:1;padding:9px 12px 0;border-right:1px solid var(--hair)}
+  .spex div:first-child{padding-left:0}
+  .spex div:last-child{border-right:0}
+  .spex dt{color:var(--soft);font-size:12.5px}
+  .spex dd{margin:1px 0 0;font:600 16px/1.3 Barlow,sans-serif}
+  .gone{animation:gone .32s ease forwards;overflow:hidden}
+  @keyframes gone{to{opacity:0;transform:translateX(-14px)}}
+
+  .none{padding:46px 0 60px;color:var(--soft);max-width:34em}
+  .none b{display:block;color:var(--ink);font:600 20px/1.3 Barlow,sans-serif;
+          margin-bottom:5px}
+
+  /* ---- panel ---- */
+  .lede{margin:22px 0 18px;max-width:62ch;color:#43494c}
+  table{width:100%;border-collapse:collapse;font-size:15.5px}
+  thead th{text-align:left;font-weight:600;font-size:13px;color:var(--soft);
+           border-bottom:2px solid var(--rule);padding:0 10px 7px}
+  thead th:first-child,tbody td:first-child{padding-left:0}
+  tbody td{border-bottom:1px solid var(--hair);padding:11px 10px}
+  tbody tr.off td{color:#a3a8ab}
+  tbody tr.off .mdl{text-decoration:line-through}
+  .state{font-weight:600;font-size:14px}
+  .state.on{color:#1d7a4c}
+  .state.off{color:var(--soft)}
+  .act{text-align:right;white-space:nowrap}
+  .btn{background:var(--rule);color:#fff;border:1px solid var(--rule);
+       border-radius:3px;padding:8px 14px;cursor:pointer;font-size:14.5px;
+       font-weight:500}
+  .btn.undo{background:none;color:var(--ink);border-color:#b9bab5}
+
+  /* ---- detail ---- */
+  dialog{border:0;padding:0;width:min(620px,94vw);background:var(--paper);
+         box-shadow:0 24px 60px rgba(0,0,0,.3)}
+  dialog::backdrop{background:rgba(20,22,24,.62)}
+  .dtop{display:flex;align-items:baseline;gap:12px;padding:16px 20px;
+        border-bottom:2px solid var(--rule)}
+  .dtop h2{margin:0;font:600 20px/1.25 Barlow,sans-serif}
+  .x{margin-left:auto;background:none;border:0;cursor:pointer;font-size:26px;
+     line-height:1;color:var(--soft);padding:0 2px}
+  dialog img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+  .dspecs{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0 20px 20px}
+  .dspecs div{display:flex;justify-content:space-between;gap:12px;
+              padding:11px 0;border-bottom:1px solid var(--hair)}
+  .dspecs span{color:var(--soft)}
+  .dspecs b{font-weight:600}
+  .dspecs .big b{color:var(--red);font:700 23px/1 'Barlow SC',Barlow,sans-serif}
+
+  footer{border-top:1px solid var(--hair);margin-top:46px;background:var(--wash)}
+  footer .wrap{padding:22px 18px 40px;font-size:13px;color:var(--soft)}
+  footer p{margin:0 0 9px;max-width:70ch}
+  footer a{color:#4d5356}
+  .cred{font-size:12px;line-height:1.65;max-width:none}
+
+  @media (max-width:720px){
+    .item{grid-template-columns:1fr;gap:13px}
+    .price{font-size:28px}
+    .dspecs{grid-template-columns:1fr}
+    .ring{margin-left:0;text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  }
 </style>
 
-<div class="demo-bar">DEMO — <span>örnek veriler. Gerçek bir galeri değildir.</span></div>
-
-<header>
-  <div class="bar">
-    <div class="logo">ÖRNEK <b>OTO GALERİ</b></div>
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" aria-selected="true" data-view="site">Vitrin</button>
-      <button class="tab" role="tab" aria-selected="false" data-view="panel">Yönetim Paneli</button>
+<header class="top">
+  <div class="wrap">
+    <div>
+      <div class="mark">Örnek <i>Oto Galeri</i></div>
+      <div class="where">Girne · Lefkoşa yolu üzeri</div>
+    </div>
+    <div class="ring">
+      <a href="#" onclick="return false">0533 000 00 00</a>
+      <span>Her gün 09:00 – 18:00</span>
     </div>
   </div>
 </header>
 
+<div class="notice"><div class="wrap">
+  <b>Bu bir örnek sitedir.</b> Araçlar ve iletişim bilgileri gerçek değildir —
+  sitenin nasıl çalıştığını göstermek için hazırlanmıştır.
+</div></div>
+
+<nav class="views"><div class="wrap">
+  <button class="view" data-view="site" aria-selected="true">Araçlar</button>
+  <button class="view" data-view="panel" aria-selected="false">Yönetim Paneli</button>
+</div></nav>
+
 <main>
-  <section id="site">
-    <div class="filters">
+<section id="site">
+  <div class="filters">
+    <div class="fgrid">
       <div class="f"><label for="q">Ara</label>
-        <input id="q" type="search" placeholder="marka, model…"></div>
+        <input id="q" type="search" placeholder="Marka veya model"></div>
       <div class="f"><label for="marka">Marka</label><select id="marka"></select></div>
       <div class="f"><label for="yakit">Yakıt</label><select id="yakit"></select></div>
       <div class="f"><label for="vites">Vites</label><select id="vites"></select></div>
-      <div class="f"><label for="yil">Model yılı — en az <span class="rangeval" id="yilv"></span></label>
-        <input id="yil" type="range"></div>
-      <div class="f"><label for="km">Kilometre — en fazla <span class="rangeval" id="kmv"></span></label>
-        <input id="km" type="range"></div>
-      <div class="f"><label for="fiyat">Fiyat — en fazla <span class="rangeval" id="fiyatv"></span></label>
-        <input id="fiyat" type="range"></div>
-      <div class="f"><label for="sirala">Sırala</label>
+      <div class="f"><label for="sirala">Sıralama</label>
         <select id="sirala">
           <option value="yeni">Önce yeni eklenen</option>
           <option value="ucuz">Fiyat: düşükten yükseğe</option>
           <option value="pahali">Fiyat: yüksekten düşüğe</option>
           <option value="km">Kilometre: azdan çoğa</option>
         </select></div>
+      <div class="f"><label for="yil">En eski yıl <b class="fval" id="yilv"></b></label>
+        <input id="yil" type="range"></div>
+      <div class="f"><label for="km">En fazla km <b class="fval" id="kmv"></b></label>
+        <input id="km" type="range"></div>
+      <div class="f"><label for="fiyat">En fazla fiyat <b class="fval" id="fiyatv"></b></label>
+        <input id="fiyat" type="range"></div>
     </div>
-    <div class="countbar">
-      <span><b id="count">0</b> araç listeleniyor</span>
-      <button class="reset" id="reset">Filtreleri temizle</button>
+    <div class="fbar">
+      <div class="tally"><span id="count"></span> <span>araç listeleniyor</span></div>
+      <button class="clear" id="reset">Filtreleri temizle</button>
     </div>
-    <div class="grid" id="grid"></div>
-    <div class="empty" id="empty" hidden>Bu filtrelere uyan araç yok.</div>
-  </section>
+  </div>
 
-  <section id="panel" hidden>
-    <div class="panelnote">
-      <b>Galerinin kendi paneli.</b> Araç satıldığında tek tıkla vitrinden kalkar, yeni araç
-      anında en üstte görünür. Site kodu değişmez, kimseye haber vermeniz gerekmez.
-      <em>Bu demoda değişiklikler sadece bu sekmede tutulur.</em>
+  <div class="wrap">
+    <ul class="stock" id="grid"></ul>
+    <div class="none" id="empty" hidden>
+      <b>Bu filtrelere uyan araç yok.</b>
+      Fiyat veya kilometre aralığını genişletin, ya da filtreleri temizleyin.
     </div>
-    <table>
-      <thead><tr><th>Araç</th><th>Yıl</th><th>Fiyat</th><th>Durum</th><th></th></tr></thead>
-      <tbody id="ptbody"></tbody>
-    </table>
-  </section>
+  </div>
+</section>
+
+<section id="panel" hidden><div class="wrap">
+  <p class="lede">Araç satıldığında listeden kaldırın — site anında güncellenir,
+    kimse elinizde olmayan araç için aramaz. Fikrinizi değiştirirseniz geri
+    koyabilirsiniz.</p>
+  <table>
+    <thead><tr><th>Araç</th><th>Yıl</th><th>Fiyat</th><th>Durum</th><th></th></tr></thead>
+    <tbody id="ptbody"></tbody>
+  </table>
+</div></section>
 </main>
 
 <dialog id="dlg">
-  <div class="dhead"><b id="dtitle"></b>
-    <button class="dclose" id="dclose" aria-label="Kapat">&times;</button></div>
-  <div class="dbody">
-    <div id="dimg"></div>
-    <div class="specs" id="dspecs"></div>
-  </div>
+  <div class="dtop"><h2 id="dtitle"></h2>
+    <button class="x" id="dclose" aria-label="Kapat">&times;</button></div>
+  <div id="dimg"></div>
+  <div class="dspecs" id="dspecs"></div>
 </dialog>
 
-<footer>
-  Bu sayfa bir <b>demo</b>dur — örnek araçlarla hazırlanmıştır.<br>
-  Yapan: <a href="https://er369ai.github.io">Erfan Boostan</a> · Girne, KKTC
-</footer>
+<footer><div class="wrap">
+  <p><b>Örnek Oto Galeri</b> gerçek bir işletme değildir. Bu sayfa, oto
+    galeriler için hazırlanan araç portföyü sitesinin nasıl çalıştığını
+    göstermek üzere <a href="https://er369ai.github.io">Erfan Boostan</a>
+    tarafından yapılmıştır.</p>
+  <p class="cred" id="cred"></p>
+</div></footer>
 
 <script>
-// Invented vehicles. Nothing here is scraped from a real gallery's stock.
+const $ = s => document.querySelector(s);
+const tl  = n => Number(n).toLocaleString("tr-TR");
+const gbp = n => "£" + Number(n).toLocaleString("tr-TR");
+
+// Invented stock. `renk` matches the actual car in each photograph -- a red
+// photo above a listing that says Beyaz is exactly the detail that makes
+// someone stop believing the rest of the page.
 const CARS = [
-  {id:1, marka:"Volkswagen", model:"Golf 1.6 TDI Comfortline", yil:2019, km:78000,  fiyat:15500, yakit:"Dizel",   vites:"Otomatik", renk:"Beyaz",     h:210},
-  {id:2, marka:"BMW",        model:"320i M Sport",             yil:2020, km:52000,  fiyat:28500, yakit:"Benzin",  vites:"Otomatik", renk:"Siyah",     h:12},
-  {id:3, marka:"Toyota",     model:"Corolla 1.33 Life",        yil:2018, km:96000,  fiyat:12800, yakit:"Benzin",  vites:"Manuel",   renk:"Gri",       h:190},
-  {id:4, marka:"Mercedes",   model:"C180 AMG",                 yil:2021, km:41000,  fiyat:34000, yakit:"Benzin",  vites:"Otomatik", renk:"Lacivert",  h:225},
-  {id:5, marka:"Honda",      model:"Civic 1.6 Elegance",       yil:2017, km:118000, fiyat:11200, yakit:"Benzin",  vites:"Otomatik", renk:"Kırmızı",   h:0},
-  {id:6, marka:"Nissan",     model:"Qashqai 1.5 dCi",          yil:2019, km:88000,  fiyat:17900, yakit:"Dizel",   vites:"Manuel",   renk:"Beyaz",     h:30},
-  {id:7, marka:"Audi",       model:"A3 Sportback 35 TFSI",     yil:2020, km:63000,  fiyat:24500, yakit:"Benzin",  vites:"Otomatik", renk:"Gri",       h:200},
-  {id:8, marka:"Toyota",     model:"C-HR Hybrid",              yil:2022, km:29000,  fiyat:26800, yakit:"Hibrit",  vites:"Otomatik", renk:"Mavi",      h:205},
-  {id:9, marka:"Renault",    model:"Clio 1.0 TCe Joy",         yil:2021, km:35000,  fiyat:12400, yakit:"Benzin",  vites:"Manuel",   renk:"Turuncu",   h:25},
-  {id:10,marka:"Volkswagen", model:"Passat 1.6 TDI Highline",  yil:2018, km:134000, fiyat:16700, yakit:"Dizel",   vites:"Otomatik", renk:"Siyah",     h:215},
-  {id:11,marka:"Hyundai",    model:"Tucson 1.6 CRDi",          yil:2022, km:24000,  fiyat:29900, yakit:"Dizel",   vites:"Otomatik", renk:"Yeşil",     h:150},
-  {id:12,marka:"BMW",        model:"X1 sDrive18i",             yil:2023, km:12000,  fiyat:41000, yakit:"Benzin",  vites:"Otomatik", renk:"Beyaz",     h:205},
+  {id:1, marka:"Volkswagen", model:"Golf 1.6 TDI Comfortline", yil:2019, km:78000,  fiyat:15500, yakit:"Dizel",  vites:"Otomatik", renk:"Mavi"},
+  {id:2, marka:"BMW",        model:"320i M Sport",             yil:2020, km:52000,  fiyat:28500, yakit:"Benzin", vites:"Otomatik", renk:"Siyah"},
+  {id:3, marka:"Toyota",     model:"Corolla 1.33 Life",        yil:2018, km:96000,  fiyat:12800, yakit:"Benzin", vites:"Manuel",   renk:"Kırmızı"},
+  {id:4, marka:"Mercedes",   model:"C180 AMG",                 yil:2021, km:41000,  fiyat:34000, yakit:"Benzin", vites:"Otomatik", renk:"Siyah"},
+  {id:5, marka:"Honda",      model:"Civic 1.6 Elegance",       yil:2017, km:118000, fiyat:11200, yakit:"Benzin", vites:"Otomatik", renk:"Siyah"},
+  {id:6, marka:"Nissan",     model:"Qashqai 1.5 dCi",          yil:2019, km:88000,  fiyat:17900, yakit:"Dizel",  vites:"Manuel",   renk:"Beyaz"},
+  {id:7, marka:"Audi",       model:"A3 Sportback 35 TFSI",     yil:2020, km:63000,  fiyat:24500, yakit:"Benzin", vites:"Otomatik", renk:"Kırmızı"},
+  {id:8, marka:"Toyota",     model:"C-HR Hybrid",              yil:2022, km:29000,  fiyat:26800, yakit:"Hibrit", vites:"Otomatik", renk:"Gümüş"},
+  {id:9, marka:"Renault",    model:"Clio 1.0 TCe Joy",         yil:2021, km:35000,  fiyat:12400, yakit:"Benzin", vites:"Manuel",   renk:"Turuncu"},
+  {id:10,marka:"Volkswagen", model:"Passat 1.6 TDI Highline",  yil:2018, km:134000, fiyat:16700, yakit:"Dizel",  vites:"Otomatik", renk:"Siyah"},
+  {id:11,marka:"Hyundai",    model:"Tucson 1.6 CRDi",          yil:2022, km:24000,  fiyat:29900, yakit:"Dizel",  vites:"Otomatik", renk:"Beyaz"},
+  {id:12,marka:"BMW",        model:"X1 sDrive18i",             yil:2023, km:12000,  fiyat:41000, yakit:"Benzin", vites:"Otomatik", renk:"Gri"},
 ];
 
-const tl = n => new Intl.NumberFormat("tr-TR").format(n);
-const gbp = n => "£" + tl(n);
-const $ = s => document.querySelector(s);
+// Photographer and licence per file, as CC-BY and CC-BY-SA require.
+const CREDIT = {
+  1:["Damian B Oh","CC BY-SA 4.0"], 2:["Damian B Oh","CC BY-SA 4.0"],
+  3:["Tokumeigakarinoaoshima","CC0"], 4:["DieselFordMondeo","CC BY-SA 4.0"],
+  5:["Dinkun Chen","CC BY-SA 4.0"], 6:["Dinkun Chen","CC BY-SA 4.0"],
+  7:["Peulle","CC BY-SA 4.0"], 8:["Alexander Migl","CC BY-SA 4.0"],
+  9:["Alexander Migl","CC BY-SA 4.0"], 10:["TD","CC BY-SA 3.0"],
+  11:["Alexander-93","CC BY-SA 4.0"], 12:["Alexander Migl","CC BY-SA 4.0"],
+};
+$("#cred").textContent = "Fotoğraflar: Wikimedia Commons — " +
+  CARS.map(c => `${c.marka} ${c.model.split(" ")[0]} © ${CREDIT[c.id][0]} (${CREDIT[c.id][1]})`)
+      .join("; ") + ".";
 
-// Inline SVG stands in for a photo: no network needed in someone's office.
-function photo(c, big){
-  const H = big ? 220 : 170;
-  return `<svg class="thumb" viewBox="0 0 320 240" role="img"
-     aria-label="${c.marka} ${c.model} örnek görsel" style="${big?'aspect-ratio:16/10':''}">
-    <defs><linearGradient id="g${c.id}${big?'b':''}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="hsl(${c.h} 32% 27%)"/>
-      <stop offset="1" stop-color="hsl(${c.h} 30% 15%)"/></linearGradient></defs>
-    <rect width="320" height="240" fill="url(#g${c.id}${big?'b':''})"/>
-    <g fill="hsl(${c.h} 40% ${big?62:56}%)" opacity=".9">
-      <path d="M56 150c0-7 5-12 11-14l18-28c4-6 10-9 17-9h76c7 0 13 3 17 9l18 28c6 2 11 7 11 14v20a6 6 0 0 1-6 6h-16a18 18 0 0 0-36 0H114a18 18 0 0 0-36 0H62a6 6 0 0 1-6-6z"/>
-      <rect x="96" y="108" width="128" height="4" rx="2" opacity=".5"/>
-    </g>
-    <circle cx="96" cy="176" r="15" fill="#0d1014"/><circle cx="96" cy="176" r="6" fill="hsl(${c.h} 30% 45%)"/>
-    <circle cx="224" cy="176" r="15" fill="#0d1014"/><circle cx="224" cy="176" r="6" fill="hsl(${c.h} 30% 45%)"/>
-    <text x="160" y="56" text-anchor="middle" fill="#fff" opacity=".85"
-          font-family="system-ui,sans-serif" font-size="20" font-weight="700">${c.marka}</text>
-    <text x="160" y="78" text-anchor="middle" fill="#fff" opacity=".45"
-          font-family="system-ui,sans-serif" font-size="13">${c.yil} · ${c.renk}</text>
-  </svg>`;
-}
+const shot = c => `<img src="img/${c.id}.jpg" alt="${c.marka} ${c.model}"
+  width="900" height="562" loading="lazy" decoding="async">`;
 
 let sold = new Set();
 
@@ -219,7 +341,7 @@ function fillSelect(el, values, allLabel){
   el.innerHTML = `<option value="">${allLabel}</option>` +
     values.map(v => `<option>${v}</option>`).join("");
 }
-const uniq = k => [...new Set(CARS.map(c => c[k]))].sort();
+const uniq = k => [...new Set(CARS.map(c => c[k]))].sort((a,b)=>a.localeCompare(b,"tr"));
 
 fillSelect($("#marka"), uniq("marka"), "Tüm markalar");
 fillSelect($("#yakit"), uniq("yakit"), "Tümü");
@@ -251,33 +373,40 @@ function current(){
 }
 
 function render(){
-  $("#yilv").textContent   = $("#yil").value;
+  $("#yilv").textContent   = $("#yil").value + " ve üzeri";
   $("#kmv").textContent    = tl($("#km").value) + " km";
   $("#fiyatv").textContent = gbp($("#fiyat").value);
   const list = current();
   $("#count").textContent = list.length;
   $("#empty").hidden = list.length > 0;
   $("#grid").innerHTML = list.map(c => `
-    <article class="card" data-id="${c.id}" tabindex="0">
-      ${photo(c)}
-      <div class="cbody">
-        <div class="ctitle">${c.marka} ${c.model}</div>
-        <div class="cmeta">${c.yil} · ${tl(c.km)} km · ${c.yakit} · ${c.vites}</div>
-        <div class="cprice">${gbp(c.fiyat)}</div>
+    <li class="item" data-id="${c.id}" tabindex="0">
+      <figure class="shot">${shot(c)}</figure>
+      <div class="facts">
+        <div class="head">
+          <h3 class="name">${c.marka} ${c.model.split(" ")[0]}
+            <em>${c.model.split(" ").slice(1).join(" ")}</em></h3>
+          <div class="price">${gbp(c.fiyat)}</div>
+        </div>
+        <dl class="spex">
+          <div><dt>Model yılı</dt><dd>${c.yil}</dd></div>
+          <div><dt>Kilometre</dt><dd>${tl(c.km)}</dd></div>
+          <div><dt>Yakıt</dt><dd>${c.yakit}</dd></div>
+          <div><dt>Vites</dt><dd>${c.vites}</dd></div>
+        </dl>
       </div>
-    </article>`).join("");
+    </li>`).join("");
   renderPanel();
 }
 
 function renderPanel(){
   $("#ptbody").innerHTML = CARS.map(c => {
-    const isSold = sold.has(c.id);
-    return `<tr class="${isSold?'sold':''}">
-      <td>${c.marka} ${c.model}</td><td>${c.yil}</td><td>${gbp(c.fiyat)}</td>
-      <td>${isSold ? "Satıldı" : "Vitrinde"}</td>
-      <td style="text-align:right">
-        <button class="btn ${isSold?'ghost':''}" data-toggle="${c.id}">
-          ${isSold ? "Geri koy" : "Satıldı olarak işaretle"}</button></td></tr>`;
+    const off = sold.has(c.id);
+    return `<tr class="${off?'off':''}">
+      <td class="mdl">${c.marka} ${c.model}</td><td>${c.yil}</td><td>${gbp(c.fiyat)}</td>
+      <td><span class="state ${off?'off':'on'}">${off ? "Satıldı" : "Vitrinde"}</span></td>
+      <td class="act"><button class="btn ${off?'undo':''}" data-toggle="${c.id}">
+          ${off ? "Geri koy" : "Satıldı olarak işaretle"}</button></td></tr>`;
   }).join("");
 }
 
@@ -293,31 +422,44 @@ $("#reset").addEventListener("click", () => {
 
 document.addEventListener("click", e => {
   const t = e.target.closest("[data-toggle]");
-  if (t){ const id = +t.dataset.toggle; sold.has(id) ? sold.delete(id) : sold.add(id); render(); return; }
-  const tab = e.target.closest(".tab");
+  if (t){
+    const id = +t.dataset.toggle;
+    // The one deliberate motion on the page: the row sliding out is the whole
+    // thing being demonstrated, so it is worth showing rather than snapping.
+    const row = $(`.item[data-id="${id}"]`);
+    if (row && !sold.has(id) && !matchMedia("(prefers-reduced-motion:reduce)").matches){
+      row.classList.add("gone");
+      setTimeout(() => { sold.add(id); render(); }, 300);
+    } else {
+      sold.has(id) ? sold.delete(id) : sold.add(id);
+      render();
+    }
+    return;
+  }
+  const tab = e.target.closest(".view");
   if (tab){
-    document.querySelectorAll(".tab").forEach(b =>
+    document.querySelectorAll(".view").forEach(b =>
       b.setAttribute("aria-selected", String(b === tab)));
     $("#site").hidden  = tab.dataset.view !== "site";
     $("#panel").hidden = tab.dataset.view !== "panel";
     return;
   }
-  const card = e.target.closest(".card");
-  if (card) openCar(+card.dataset.id);
+  const item = e.target.closest(".item");
+  if (item) openCar(+item.dataset.id);
 });
 document.addEventListener("keydown", e => {
-  if (e.key === "Enter" && e.target.classList?.contains("card")) openCar(+e.target.dataset.id);
+  if (e.key === "Enter" && e.target.classList?.contains("item")) openCar(+e.target.dataset.id);
 });
 
 function openCar(id){
   const c = CARS.find(x => x.id === id);
   $("#dtitle").textContent = `${c.marka} ${c.model}`;
-  $("#dimg").innerHTML = photo(c, true);
+  $("#dimg").innerHTML = shot(c);
   $("#dspecs").innerHTML = [
-    ["Model yılı", c.yil], ["Kilometre", tl(c.km) + " km"],
-    ["Yakıt", c.yakit], ["Vites", c.vites],
-    ["Renk", c.renk], ["Fiyat", gbp(c.fiyat)],
-  ].map(([k,v]) => `<div class="spec"><span>${k}</span><b>${v}</b></div>`).join("");
+    ["Model yılı", c.yil, ""], ["Kilometre", tl(c.km) + " km", ""],
+    ["Yakıt", c.yakit, ""], ["Vites", c.vites, ""],
+    ["Renk", c.renk, ""], ["Fiyat", gbp(c.fiyat), "big"],
+  ].map(([k,v,cl]) => `<div class="${cl}"><span>${k}</span><b>${v}</b></div>`).join("");
   $("#dlg").showModal();
 }
 $("#dclose").addEventListener("click", () => $("#dlg").close());
