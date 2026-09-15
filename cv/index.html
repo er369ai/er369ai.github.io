@@ -66,10 +66,21 @@
     .sk b { margin-top: 3mm; }
   }
 
-  /* Keep the sheet to one page. See reposition.py. */
-  .item { margin-bottom: 1.3mm; }
-  main h2 { margin: 2.0mm 0 1.4mm; }
-  body { line-height: 1.35; }
+
+
+
+
+  /* Keep the PRINT sheet to one page. Consolidated 2026-09-16 -- this block had been
+     appended five identical times. Screen and mobile rules above are unaffected. */
+  @media print {
+    .item    { margin-bottom: 0.9mm; }
+    main h2  { margin: 1.7mm 0 1.2mm; font-size: 9.1pt; }
+    main     { padding: 7mm 8mm; }
+    body     { line-height: 1.27; font-size: 9.0pt; }
+    .item p  { font-size: 8.8pt; }
+    .summary { font-size: 8.9pt; margin-bottom: 3.0mm; }
+    .sk      { font-size: 8.7pt; gap: 1.1mm 3mm; }
+  }
 </style>
 
 <div class="bar"><a href="Erfan_Boostan_CV.pdf" download>Download PDF</a></div>
@@ -152,7 +163,7 @@
       <div class="hd">
         <div class="ttl">Lead-Generation &amp; Outreach Automation — <span>Built and operated</span></div>
       </div>
-      <p>The sales pipeline behind my own web-development business, built AI-first and in daily use. Scrapes public property and vehicle directories, validates contacts, and reconciles duplicates with phone normalisation and Turkish-aware name matching — 403 agencies parsed down to 363 ranked leads. A rate-limit-aware scheduler caps daily sends and rotates wording; every conversation is tracked. Python, browser automation. <a class="lnk" href="https://er369ai.github.io/galeri/">er369ai.github.io/galeri/</a></p>
+      <p>The sales pipeline behind my own web-development business, built AI-first and in daily use — <strong>2,369 lines of Python across 10 modules</strong>. Scrapes property and vehicle directories, validates contacts, and reconciles duplicates by phone normalisation and Turkish-aware name folding; <strong>~3,400 records collected, 977 ranked leads live</strong>. Copy is generated per business, and sending is paced and human-approved by design. The deduplicator reads the operator's <strong>WhatsApp IndexedDB</strong> directly, treating live conversation history as ground truth over the written log — <strong>218 conversations reconciled, four duplicate approaches caught</strong>. Python, browser automation, IndexedDB. <a class="lnk" href="https://er369ai.github.io/galeri/">er369ai.github.io/galeri/</a></p>
     </div>
 
     <h2>Skills</h2>
