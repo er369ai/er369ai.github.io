@@ -70,16 +70,18 @@
 
 
 
-  /* Keep the PRINT sheet to one page. Consolidated 2026-09-16 -- this block had been
-     appended five identical times. Screen and mobile rules above are unaffected. */
+  /* One page, but FILLED. The earlier squeeze was set when the entries were much
+     longer; after the rewrite it left a quarter of the sheet blank. Screen and
+     mobile rules above are untouched. */
   @media print {
-    .item    { margin-bottom: 0.9mm; }
-    main h2  { margin: 1.7mm 0 1.2mm; font-size: 9.1pt; }
-    main     { padding: 7mm 8mm; }
-    body     { line-height: 1.27; font-size: 9.0pt; }
-    .item p  { font-size: 8.8pt; }
-    .summary { font-size: 8.9pt; margin-bottom: 3.0mm; }
-    .sk      { font-size: 8.7pt; gap: 1.1mm 3mm; }
+    .item    { margin-bottom: 1.5mm; }
+    main h2  { margin: 2.3mm 0 1.5mm; font-size: 9.3pt; }
+    main     { padding: 8mm 9mm; }
+    body     { line-height: 1.32; font-size: 9.3pt; }
+    .item p  { font-size: 9.1pt; margin-top: 0.8mm; }
+    .summary { font-size: 9.5pt; margin-bottom: 3.6mm; line-height: 1.45; }
+    .sk      { font-size: 9.2pt; gap: 1.6mm 3mm; }
+    .ttl     { font-size: 10.3pt; }
   }
 </style>
 
