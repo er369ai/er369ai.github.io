@@ -200,12 +200,12 @@
     <p class="lede" data-lang="en">
       Two paid products live on the App Store and Google Play — a ride-hailing platform for North
       Cyprus built in Kotlin Multiplatform, and a mechanic marketplace running in six countries.
-      I take products from design through to store release, and I'm comfortable owning the whole path.
+      I take an app from the first sketch all the way to the store release.
     </p>
     <p class="lede" data-lang="tr">
       App Store ve Google Play'de yayında olan iki ücretli ürün — Kotlin Multiplatform ile geliştirdiğim
       Kuzey Kıbrıs'a özel bir yolculuk paylaşım platformu ve altı ülkede çalışan bir tamirci pazaryeri.
-      Ürünleri tasarımdan mağaza yayınına kadar götürüyorum ve sürecin tamamını üstlenmekten çekinmiyorum.
+      Bir uygulamayı ilk tasarımdan mağazada yayınlanmasına kadar kendim götürüyorum.
     </p>
     <div class="cta">
       <a class="btn p" href="#work" data-lang="en">See the work</a>
@@ -228,7 +228,7 @@
 
   <section id="work">
     <h2><span data-lang="en" class="on">Selected work</span><span data-lang="tr">Seçilmiş işler</span></h2>
-    <div class="sechead" data-lang="en">Shipped, in production, with real users.</div>
+    <div class="sechead" data-lang="en">Things that are live, with real people using them.</div>
     <div class="sechead" data-lang="tr">Yayında, canlıda, gerçek kullanıcılarla.</div>
 
     <div class="card">
@@ -250,16 +250,12 @@
         <span class="badge" data-lang="tr">Gerçek zamanlı</span>
       </div>
       <p data-lang="en">A ride-hailing platform for North Cyprus. I built it in Kotlin Multiplatform so the business
-      logic is shared across Android and iOS, on a full Firebase backend — authentication, the Firestore
-      data model, and real-time ride state between passenger and driver. Separate passenger and driver
-      apps, plus the marketing site on a custom domain. My details are listed as the developer contact
-      on the store listing (<i>com.kibride.passenger.android</i>).</p>
+      logic is shared across Android and iOS, with Firebase behind it — sign-in, the database, and live tracking between passenger and driver. Separate passenger and driver
+      apps, plus the marketing site on a custom domain. It is on the stores as <i>com.kibride.passenger.android</i>.</p>
       <p data-lang="tr">Kuzey Kıbrıs için bir yolculuk paylaşım platformu. İş mantığı Android ve iOS
       arasında paylaşılsın diye Kotlin Multiplatform ile geliştirdim; arkasında tam bir Firebase altyapısı
       var — kimlik doğrulama, Firestore veri modeli ve yolcu ile sürücü arasında gerçek zamanlı yolculuk
-      durumu. Ayrı yolcu ve sürücü uygulamaları, ayrıca kendi alan adında tanıtım sitesi. Mağaza
-      kaydında geliştirici iletişim bilgisi olarak benim bilgilerim yer alıyor
-      (<i>com.kibride.passenger.android</i>).</p>
+      durumu. Ayrı yolcu ve sürücü uygulamaları, ayrıca kendi alan adında tanıtım sitesi. Mağazalarda <i>com.kibride.passenger.android</i> adıyla yayında.</p>
       <div class="links"><a href="https://kktc.kibride.com">kktc.kibride.com →</a></div>
     </div>
 
@@ -361,24 +357,18 @@
         <span class="badge" data-lang="en">Automation</span>
         <span class="badge" data-lang="tr">Otomasyon</span>
       </div>
-      <p data-lang="en">The sales pipeline behind my own web-development business, in daily use — 2,369 lines of
-      Python across 10 modules. It scrapes public property and vehicle directories and company sites, validates the
-      contacts and reconciles duplicates across sources: ~3,400 records collected, 977 ranked leads live, ordered by
-      how much inventory each firm carries so the businesses that feel the problem most get contacted first. The
-      deduplicator reads my own WhatsApp conversation history directly and treats that as ground truth over the
-      written log — on its first run it reconciled 218 conversations and caught four businesses about to be contacted
-      a second time. A scheduler caps and paces daily sends, and nothing goes out without my approval. Built AI-first,
-      then read, tested and corrected. Demos built to sell it:
+      <p data-lang="en">A Python tool I built to find and contact local businesses for my web work. It scrapes
+      listing sites, cleans up the contact details, and checks my own WhatsApp history so nobody gets messaged
+      twice. About 3,400 businesses collected so far, 977 in the current list, sorted so the ones most likely to
+      need a site come first. It writes a different message for each business, but I read and send every one
+      myself — automating that gets your number banned. Demos I made to sell it:
       <a href="https://er369ai.github.io/galeri/">car gallery</a> ·
       <a href="https://er369ai.github.io/emlak/">estate listings</a>.</p>
-      <p data-lang="tr">Kendi web geliştirme işimin arkasındaki satış hattı, her gün kullanılıyor — 10 modülde
-      2.369 satır Python. Halka açık emlak ve araç rehberlerini ve firmaların kendi sitelerini tarıyor, iletişim
-      bilgilerini doğruluyor ve kaynaklar arasındaki tekrarları ayıklıyor: ~3.400 kayıt toplandı, 977 sıralı kayıt
-      aktif. Her firmanın kaç ilanı olduğuna göre sıralanıyor, böylece sorunu en çok yaşayan firmalarla önce
-      iletişime geçiliyor. Tekrar ayıklayıcı doğrudan kendi WhatsApp görüşme geçmişimi okuyor ve yazılı kaydı değil
-      onu esas alıyor — ilk çalışmasında 218 görüşmeyi eşleştirdi ve ikinci kez mesaj gönderilmek üzere olan dört
-      firmayı yakaladı. Bir zamanlayıcı günlük mesaj sayısını sınırlıyor ve aralıklandırıyor; onayım olmadan hiçbir
-      mesaj gitmiyor. Satış için yaptığım örnekler:
+      <p data-lang="tr">Kendi işim için yerel firmaları bulup iletişime geçmek üzere yazdığım bir Python aracı.
+      İlan sitelerini tarıyor, iletişim bilgilerini temizliyor ve kendi WhatsApp geçmişimi kontrol ederek aynı
+      kişiye iki kez mesaj gitmesini engelliyor. Şu ana kadar yaklaşık 3.400 firma toplandı, listede 977 tanesi
+      var. Her firmaya ayrı bir mesaj yazıyor ama hepsini ben okuyup ben gönderiyorum — bunu otomatikleştirmek
+      numaranızın kapanmasına yol açıyor. Satış için yaptığım örnekler:
       <a href="https://er369ai.github.io/galeri/">oto galeri</a> ·
       <a href="https://er369ai.github.io/emlak/">emlak ilanları</a>.</p>
     </div>
