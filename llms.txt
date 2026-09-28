@@ -1,0 +1,32 @@
+# Erfan Boostan
+
+> AI product engineer and mobile/web developer based in Nicosia, Cyprus. Two apps live on the App Store and Google Play. Works in Kotlin Multiplatform, React, Next.js, Firebase and Python, and uses AI tooling to build and run working systems end to end. Open to remote contract work and to relocation.
+
+## Contact
+
+- Email: erfan.boostan@gmail.com
+- Phone / WhatsApp: +90 539 138 45 76
+- GitHub: https://github.com/er369ai
+- LinkedIn: https://www.linkedin.com/in/erfan-boostan-6a67191b8
+- Portfolio: https://er369ai.github.io/
+
+## Work
+
+- [KibRide](https://kktc.kibride.com): Ride-hailing platform for North Cyprus, live on the App Store and Google Play (com.kibride.passenger.android). Worked on it as Mobile Developer at RingosTechnology. Kotlin Multiplatform with shared Android/iOS logic, Firebase Auth, Firestore, real-time trip tracking between passenger and driver.
+- [Automech](https://auto-mate-landing.vercel.app): Mechanic marketplace live on Google Play in Cyprus, Greece, Estonia, Latvia, Lithuania and Germany (app.automateonline.user). Contract Frontend & UI/UX Developer: designed and deployed the product site in React/Next.js/Tailwind, and delivered the UI/UX for the consumer and mechanic apps and the Instagram launch content.
+- [Vibe Quest](https://vibequest-ten.vercel.app): Own product concept, a real-world meetup and skill-swap platform for Cyprus. Positioning, information architecture, revenue model and the full marketing site.
+- [KKTC Web](https://kktcweb-er369ais-projects.vercel.app): Own fixed-price, one-week website service for small businesses in Kyrenia and Nicosia. Turkish copy, conversion-focused design, and the outreach behind it.
+- Lead-generation and outreach automation: Python tool that scrapes business listings, cleans contact data, deduplicates against WhatsApp history and drafts a tailored message per business; every message is reviewed and sent by hand. Demos built for it: [car gallery](https://er369ai.github.io/galeri/), [estate listings](https://er369ai.github.io/emlak/).
+
+## Skills
+
+- Mobile: Kotlin, Kotlin Multiplatform, Expo / React Native, App Store and Google Play releases
+- Web: React, Next.js, TypeScript/JavaScript, Tailwind CSS, responsive UI/UX
+- Backend & cloud: Firebase (Auth, Firestore, real-time), REST APIs, Python, Git, Vercel
+- AI: LLM API integration, prompt design, AI features in production apps, AI-assisted development and workflow automation
+- Design: Figma, Canva, landing pages, brand-consistent social content
+- Languages: Persian (native), English (C1), Turkish (conversational), German (learning)
+
+## Optional
+
+- [CV](https://er369ai.github.io/cv/): one-page CV, also as PDF at https://er369ai.github.io/cv/Erfan_Boostan_CV.pdf

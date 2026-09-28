@@ -1,8 +1,23 @@
 User-agent: *
 Allow: /
 
-# /cv/ carries its own noindex meta tag. It is deliberately NOT disallowed here —
-# blocking the crawler would stop it ever reading that tag, and Google can then
-# index the bare URL anyway, with no content and no way to remove it.
+# AI search and assistant crawlers are welcome — the point of this site is to be
+# found and quoted accurately. Listed explicitly so no default blocks them.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+
+# /cv/, /galeri/ and /emlak/ carry their own noindex meta tags. They are deliberately
+# NOT disallowed here — blocking the crawler would stop it ever reading that tag, and
+# Google can then index the bare URL anyway, with no content and no way to remove it.
 
 Sitemap: https://er369ai.github.io/sitemap.xml
