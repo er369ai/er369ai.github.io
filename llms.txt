@@ -26,7 +26,7 @@
 - Backend & cloud: Firebase (Auth, Firestore, real-time), REST APIs, Python, Git, Vercel
 - AI: LLM API integration, prompt design, AI features in production apps, AI-assisted development and workflow automation
 - Design: Figma, Canva, landing pages, brand-consistent social content
-- Languages: Persian (native), English (C1), Turkish (conversational), German (learning)
+- Languages: Persian (native), English (C1), Turkish (basic), German (learning)
 
 ## Optional
 
