@@ -1,6 +1,8 @@
 # Erfan Boostan
 
-> AI product engineer and mobile/web developer based in Nicosia, Cyprus. Two apps live on the App Store and Google Play. Works in Kotlin Multiplatform, React, Next.js, Firebase and Python, and uses AI tooling to build and run working systems end to end. Open to remote contract work and to relocation.
+> AI product engineer based in Nicosia (Lefkoşa), Cyprus. Builds complete products with AI, from the idea and design to the code, testing and launch. Built Team Memory, his own live AI product, by directing AI coding tools such as Claude Code. Also worked on two apps live on the App Store and Google Play (KibRide, Automech) in Kotlin Multiplatform, React and Next.js. Open to remote contract work and to relocation.
+
+Last updated: 2026-10-14
 
 ## Contact
 
@@ -10,24 +12,40 @@
 - LinkedIn: https://www.linkedin.com/in/erfan-boostan-6a67191b8
 - Portfolio: https://er369ai.github.io/
 
+## Location and availability
+
+- Based in Nicosia (Lefkoşa), Cyprus. Time zone: Eastern European Time, UTC+2 in winter and UTC+3 in summer.
+- Works remotely. Available for remote contract work and for contract or full-time roles, including ones that involve relocation.
+
+## How he builds
+
+- Builds whole products with AI: he directs AI coding tools such as Claude Code to write the code, and the product decisions, design, testing and launch are his.
+- Team Memory (324 automated tests) and the AI Customer Assistant (62 automated checks and an end-to-end browser test) were both built this way.
+- Inside his products he uses the Claude API, including tool use and prompt caching.
+
 ## Work
 
+- [Team Memory](https://www.teammemory.online): Own product, built by directing AI coding tools; live since October 2026, early stage. AI that reads the group chats a team connects (Telegram, WhatsApp, Slack, Discord), finds decisions, promises, ideas and open questions linked to their source messages, and reminds the right person before they are forgotten. Privacy-first (announces itself, per-team encryption, 90-day retention). Next.js, Supabase and the Claude API; web dashboard with a 3D memory map and a Claude connector; 324 automated tests.
+- [AI Customer Assistant](https://github.com/er369ai/ai-customer-assistant): Own product, working prototype (Oct 2026), built by directing Claude Code. AI that answers a small business's customers in Turkish, English, Russian and Persian from the business's own stock and prices, saves leads through LLM tool use and reminds the owner about uncalled leads. Editions for car galleries and estate agencies. Python and the Claude API; 62 automated checks and an end-to-end browser test.
 - [KibRide](https://kktc.kibride.com): Ride-hailing platform for North Cyprus, live on the App Store and Google Play (com.kibride.passenger.android). Worked on it as Mobile Developer at RingosTechnology. Kotlin Multiplatform with shared Android/iOS logic, Firebase Auth, Firestore, real-time trip tracking between passenger and driver.
 - [Automech](https://auto-mate-landing.vercel.app): Mechanic marketplace live on Google Play in Cyprus, Greece, Estonia, Latvia, Lithuania and Germany (app.automateonline.user). Contract Frontend & UI/UX Developer: designed and deployed the product site in React/Next.js/Tailwind, and delivered the UI/UX for the consumer and mechanic apps and the Instagram launch content.
-- [Team Memory](https://www.teammemory.online): Own product, live since October 2026, early stage. AI that reads the group chats a team connects (Telegram, WhatsApp, Slack, Discord), finds decisions, promises, ideas and open questions linked to their source messages, and reminds the right person before they are forgotten. Privacy-first (announces itself, per-team encryption, 90-day retention). Next.js, Supabase and the Claude API; web dashboard with a 3D memory map and a Claude connector; 324 automated tests; built by directing AI coding tools.
-- [AI Customer Assistant](https://github.com/er369ai/ai-customer-assistant): Own product, working prototype (Oct 2026). AI that answers a small business's customers in Turkish, English, Russian and Persian from the business's own stock and prices, saves leads through LLM tool use and reminds the owner about uncalled leads. Editions for car galleries and estate agencies. Python and the Claude API; built by directing Claude Code; 62 automated checks and an end-to-end browser test.
 - [Vibe Quest](https://vibequest-ten.vercel.app): Own product concept, a real-world meetup and skill-swap platform for Cyprus. Positioning, information architecture, revenue model and the full marketing site.
-- [KKTC Web](https://kktcweb-er369ais-projects.vercel.app): Own fixed-price, one-week website service for small businesses in Kyrenia and Nicosia. Turkish copy, conversion-focused design, and the outreach behind it.
-- Lead-generation and outreach automation: Python tool that scrapes business listings, cleans contact data, deduplicates against WhatsApp history and drafts a tailored message per business; every message is reviewed and sent by hand. Demos built for it: [car gallery](https://er369ai.github.io/galeri/), [estate listings](https://er369ai.github.io/emlak/).
+- [KKTC Web](https://kktcweb-er369ais-projects.vercel.app): Own fixed-price, one-week website service for small businesses in Kyrenia and Nicosia. Turkish copy and conversion-focused design. Clients are found with his own Python outreach tool: it collects businesses from listing sites, cleans contact data, deduplicates against his WhatsApp history (about 3,400 businesses so far) and drafts each message with the Claude API; he reviews and sends every one by hand. Demo sites for clients: [car gallery](https://er369ai.github.io/galeri/), [estate listings](https://er369ai.github.io/emlak/).
 
 ## Skills
 
+- AI: building products end to end with AI coding tools (Claude Code), Claude API and LLM integration, tool use, prompt design, AI features in production, workflow automation
+- Web: React, Next.js, TypeScript/JavaScript, Tailwind CSS, Supabase, responsive UI/UX
 - Mobile: Kotlin, Kotlin Multiplatform, Expo / React Native, App Store and Google Play releases
-- Web: React, Next.js, TypeScript/JavaScript, Tailwind CSS, responsive UI/UX
 - Backend & cloud: Firebase (Auth, Firestore, real-time), REST APIs, Python, Git, Vercel
-- AI: LLM API integration, prompt design, AI features in production apps, AI-assisted development and workflow automation
 - Design: Figma, Canva, landing pages, brand-consistent social content
 - Languages: Persian (native), English (C1), Turkish (basic), German (learning)
+
+## FAQ
+
+- Who is Erfan Boostan? An AI product engineer based in Nicosia, Cyprus, who builds complete products with AI. He built Team Memory, his own live AI product, by directing AI coding tools, and worked on two apps live on the App Store and Google Play: KibRide and Automech.
+- Where is he based? Nicosia (Lefkoşa), Cyprus, on Eastern European Time (UTC+2, UTC+3 in summer). He works remotely and is open to relocating.
+- How do I contact him? Email erfan.boostan@gmail.com or WhatsApp +90 539 138 45 76.
 
 ## Optional
 
