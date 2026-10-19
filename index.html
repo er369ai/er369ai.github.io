@@ -55,7 +55,7 @@
       "isPartOf": { "@id": "https://er369ai.github.io/#website" },
       "mainEntity": { "@id": "https://er369ai.github.io/#person" },
       "hasPart": { "@id": "https://er369ai.github.io/#faq" },
-      "dateModified": "2026-10-14T12:00:00+03:00"
+      "dateModified": "2026-10-19T12:00:00+03:00"
     },
     {
       "@type": "Person",
@@ -141,7 +141,7 @@
     {
       "@type": "WebApplication",
       "name": "Team Memory",
-      "description": "AI that reads the group chats a team connects (Telegram, WhatsApp, Slack, Discord), finds decisions, promises, ideas and open questions, and reminds the right person before they are forgotten. Built by Erfan Boostan by directing AI coding tools; Next.js, Supabase and the Claude API.",
+      "description": "AI that reads the group chats a team connects (Telegram, WhatsApp, Slack, Discord), finds decisions, promises, ideas and open questions, and reminds the right person before they are forgotten. Its assistant works from the user's own WhatsApp or Telegram: with Plans, the user says who does what by when, Claude writes the messages, the user approves them, and it follows up until every task is done. Built by Erfan Boostan by directing AI coding tools; Next.js, Supabase and the Claude API.",
       "url": "https://www.teammemory.online",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
@@ -170,12 +170,12 @@
         {
           "@type": "Question",
           "name": "What has Erfan Boostan built?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Team Memory, his own AI product that reads a team's group chats and reminds people about decisions and promises; he built it by directing AI coding tools, and it has been live since October 2026 (early stage). An AI Customer Assistant that answers a small business's customers in Turkish, English, Russian and Persian; a working prototype, built with Claude Code. KibRide, in Kotlin Multiplatform and Firebase, as Mobile Developer at RingosTechnology. And the Automech product site and the UI/UX of its consumer and mechanic apps, on contract." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Team Memory, his own AI product that reads a team's group chats, reminds people about decisions and promises, and follows up on plans until the work is done; he built it by directing AI coding tools, and it has been live since October 2026 (early stage). An AI Customer Assistant that answers a small business's customers in Turkish, English, Russian and Persian; a working prototype, built with Claude Code. KibRide, in Kotlin Multiplatform and Firebase, as Mobile Developer at RingosTechnology. And the Automech product site and the UI/UX of its consumer and mechanic apps, on contract." }
         },
         {
           "@type": "Question",
           "name": "How does Erfan Boostan use AI to build?",
-          "acceptedAnswer": { "@type": "Answer", "text": "He builds whole products with AI. He directs AI coding tools such as Claude Code to write the code, and the product decisions, design, testing and launch are his. That is how he built Team Memory, which has 324 automated tests, and the AI Customer Assistant, which has 62 automated checks and an end-to-end browser test. Inside the products he uses the Claude API, including tool use and prompt caching." }
+          "acceptedAnswer": { "@type": "Answer", "text": "He builds whole products with AI. He directs AI coding tools such as Claude Code to write the code, and the product decisions, design, testing and launch are his. That is how he built Team Memory, which has 401 automated tests, and the AI Customer Assistant, which has 62 automated checks and an end-to-end browser test. Inside the products he uses the Claude API, including tool use and prompt caching." }
         },
         {
           "@type": "Question",
@@ -329,14 +329,16 @@
     <div class="role">AI product engineering · Claude API &amp; Claude Code · Next.js · Kotlin Multiplatform</div>
     <p class="lede" data-lang="en">
       I build complete products with AI: the idea, the design, the code, the tests and the launch.
-      My own product, Team Memory, is an AI that keeps track of what a team decides in its group chats.
+      My own product, Team Memory, is an AI that keeps track of what a team decides in its group chats
+      and follows up until the work is done.
       It is live, and I built it by directing AI coding tools. I also worked on two apps that are live
       on the App Store and Google Play: a ride-hailing platform for North Cyprus and a mechanic
       marketplace running in six countries.
     </p>
     <p class="lede" data-lang="tr" lang="tr">
       Yapay zekâ ile baştan sona ürün geliştiriyorum: fikir, tasarım, kod, test ve yayın.
-      Kendi ürünüm Team Memory, bir ekibin grup sohbetlerinde aldığı kararları takip eden bir yapay zekâ.
+      Kendi ürünüm Team Memory, bir ekibin grup sohbetlerinde aldığı kararları takip eden ve iş
+      bitene kadar peşini bırakmayan bir yapay zekâ.
       Yayında ve onu yapay zekâ kodlama araçlarını yönlendirerek geliştirdim. Ayrıca App Store ve Google
       Play'de yayında olan iki uygulamada çalıştım: Kuzey Kıbrıs için bir yolculuk paylaşım platformu ve
       altı ülkede çalışan bir tamirci pazaryeri.
@@ -380,22 +382,32 @@
         <span class="badge" data-lang="tr" lang="tr">Erken aşama</span>
         <span class="badge" data-lang="en">Built with AI</span>
         <span class="badge" data-lang="tr" lang="tr">Yapay zekâ ile geliştirildi</span>
+        <span class="badge" data-lang="en">AI assistant &amp; Plans</span>
+        <span class="badge" data-lang="tr" lang="tr">Yapay zekâ asistanı &amp; Planlar</span>
         <span class="badge">Next.js</span><span class="badge">Supabase</span><span class="badge">Claude API</span>
         <span class="badge">Telegram · WhatsApp · Slack · Discord</span>
       </div>
       <p data-lang="en">An AI that takes notes in a team's group chats on Telegram, WhatsApp, Slack and Discord. It picks
       out decisions, promises, ideas and open questions, links each one to the message it came from, and reminds the
-      right person before something slips: in the group, privately, or in the owner's weekly roundup. Privacy comes
+      right person before something slips: in the group, privately, or in the owner's weekly roundup. It also has an
+      assistant that works from the user's own WhatsApp or Telegram. With Plans, the user says who does what by when;
+      Claude writes the messages for the group or for each person, the user approves them before they go out, and it
+      follows up until every task is done. It can also answer simple questions in the user's own style, always marked
+      as written by the assistant. Privacy comes
       first: it announces itself in every chat, anyone can hide a message, each team's messages are encrypted with the
       team's own key, and raw chats are deleted after 90 days. Web dashboard with a 3D memory map, plus a Claude
-      connector. Next.js, Supabase and the Claude API, with 324 automated tests; I built it by directing AI coding
+      connector. Next.js, Supabase and the Claude API, with 401 automated tests; I built it by directing AI coding
       tools. Launched October 2026.</p>
       <p data-lang="tr" lang="tr">Ekiplerin Telegram, WhatsApp, Slack ve Discord gruplarında not tutan bir yapay zekâ. Kararları,
       verilen sözleri, fikirleri ve cevapsız soruları buluyor, her birini geldiği mesaja bağlıyor ve bir şey
-      unutulmadan önce doğru kişiye hatırlatıyor: grupta, özelden ya da sahibinin haftalık özetinde. Önce gizlilik:
+      unutulmadan önce doğru kişiye hatırlatıyor: grupta, özelden ya da sahibinin haftalık özetinde. Kullanıcının kendi WhatsApp ya da
+      Telegram hesabından çalışan bir asistanı da var. Planlar özelliğinde kullanıcı kimin neyi ne zamana kadar
+      yapacağını söylüyor; Claude grup ya da her kişi için mesajları yazıyor, kullanıcı onaylamadan hiçbir mesaj
+      gitmiyor ve her iş bitene kadar takip ediliyor. Basit sorulara da kullanıcının kendi üslubuyla cevap
+      verebiliyor; bu mesajlarda asistanın yazdığı her zaman belirtiliyor. Önce gizlilik:
       okuduğu her sohbette kendini tanıtıyor, herkes bir mesajı gizleyebiliyor, her ekibin mesajları kendi anahtarıyla
       şifreleniyor ve ham mesajlar 90 gün sonra siliniyor. 3D hafıza haritalı web paneli ve Claude bağlayıcısı.
-      Next.js, Supabase ve Claude API, 324 otomatik test; yapay zekâ kodlama araçlarını yönlendirerek geliştirdim.
+      Next.js, Supabase ve Claude API, 401 otomatik test; yapay zekâ kodlama araçlarını yönlendirerek geliştirdim.
       Ekim 2026'da yayına alındı.</p>
       <div class="links"><a href="https://www.teammemory.online">teammemory.online →</a></div>
     </article>
@@ -652,14 +664,14 @@
 
     <div class="card">
       <h3><span data-lang="en" class="on">What has Erfan Boostan built?</span><span data-lang="tr" lang="tr">Neler geliştirdi?</span></h3>
-      <p data-lang="en">Team Memory, his own AI product that reads a team's group chats and reminds people about
-      decisions and promises; he built it by directing AI coding tools, and it has been live since October 2026 (early
+      <p data-lang="en">Team Memory, his own AI product that reads a team's group chats, reminds people about
+      decisions and promises, and follows up on plans until the work is done; he built it by directing AI coding tools, and it has been live since October 2026 (early
       stage). An AI Customer Assistant that answers a small business's customers in Turkish, English, Russian and
       Persian; a working prototype, built with Claude Code. KibRide, in Kotlin Multiplatform and Firebase, as Mobile
       Developer at RingosTechnology. And the Automech product site and the UI/UX of its consumer and mechanic apps, on
       contract.</p>
-      <p data-lang="tr" lang="tr">Ekiplerin grup sohbetlerini okuyup kararları ve verilen sözleri hatırlatan kendi yapay zekâ
-      ürünü Team Memory; yapay zekâ kodlama araçlarını yönlendirerek geliştirdi, Ekim 2026'dan beri yayında (erken
+      <p data-lang="tr" lang="tr">Ekiplerin grup sohbetlerini okuyup kararları ve verilen sözleri hatırlatan, planları iş bitene
+      kadar takip eden kendi yapay zekâ ürünü Team Memory; yapay zekâ kodlama araçlarını yönlendirerek geliştirdi, Ekim 2026'dan beri yayında (erken
       aşama). Küçük işletmelerin müşterilerine Türkçe, İngilizce, Rusça ve Farsça cevap veren Yapay Zekâ Müşteri
       Asistanı; Claude Code ile geliştirilmiş, çalışan bir prototip. RingosTechnology'de mobil geliştirici olarak Kotlin
       Multiplatform ve Firebase ile KibRide. Ve sözleşmeli olarak Automech'in ürün sitesi ile tüketici ve tamirci
@@ -670,10 +682,10 @@
       <h3><span data-lang="en" class="on">How does Erfan Boostan use AI to build?</span><span data-lang="tr" lang="tr">Yapay zekâyı nasıl kullanıyor?</span></h3>
       <p data-lang="en">He builds whole products with AI. He directs AI coding tools such as Claude Code to write the
       code, and the product decisions, design, testing and launch are his. That is how he built Team Memory, which has
-      324 automated tests, and the AI Customer Assistant, which has 62 automated checks and an end-to-end browser test.
+      401 automated tests, and the AI Customer Assistant, which has 62 automated checks and an end-to-end browser test.
       Inside the products he uses the Claude API, including tool use and prompt caching.</p>
       <p data-lang="tr" lang="tr">Ürünlerin tamamını yapay zekâ ile geliştiriyor. Kodu Claude Code gibi yapay zekâ kodlama
-      araçlarına yazdırıyor; ürün kararları, tasarım, test ve yayına alma ona ait. Team Memory'yi (324 otomatik test) ve
+      araçlarına yazdırıyor; ürün kararları, tasarım, test ve yayına alma ona ait. Team Memory'yi (401 otomatik test) ve
       Müşteri Asistanı'nı (62 otomatik kontrol ve uçtan uca bir tarayıcı testi) bu şekilde geliştirdi. Ürünlerin içinde
       Claude API'yi kullanıyor (araç kullanımı, prompt önbelleği).</p>
     </div>
@@ -724,7 +736,7 @@
   işler için müsaittir.</p>
   <!-- Keep in step with dateModified in the JSON-LD and <lastmod> in sitemap.xml. -->
   <p class="fine updated"><span data-lang="en" class="on">Last updated</span><span data-lang="tr" lang="tr">Son güncelleme</span>
-    <time datetime="2026-10-14"><span data-lang="en" class="on">14 October 2026</span><span data-lang="tr" lang="tr">14 Ekim 2026</span></time></p>
+    <time datetime="2026-10-19"><span data-lang="en" class="on">19 October 2026</span><span data-lang="tr" lang="tr">19 Ekim 2026</span></time></p>
 </div></footer>
 
 <script>

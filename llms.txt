@@ -2,7 +2,7 @@
 
 > AI product engineer based in Nicosia (Lefkoşa), Cyprus. Builds complete products with AI, from the idea and design to the code, testing and launch. Built Team Memory, his own live AI product, by directing AI coding tools such as Claude Code. Also worked on two apps live on the App Store and Google Play (KibRide, Automech) in Kotlin Multiplatform, React and Next.js. Open to remote contract work and to relocation.
 
-Last updated: 2026-10-14
+Last updated: 2026-10-19
 
 ## Contact
 
@@ -20,12 +20,12 @@ Last updated: 2026-10-14
 ## How he builds
 
 - Builds whole products with AI: he directs AI coding tools such as Claude Code to write the code, and the product decisions, design, testing and launch are his.
-- Team Memory (324 automated tests) and the AI Customer Assistant (62 automated checks and an end-to-end browser test) were both built this way.
+- Team Memory (401 automated tests) and the AI Customer Assistant (62 automated checks and an end-to-end browser test) were both built this way.
 - Inside his products he uses the Claude API, including tool use and prompt caching.
 
 ## Work
 
-- [Team Memory](https://www.teammemory.online): Own product, built by directing AI coding tools; live since October 2026, early stage. AI that reads the group chats a team connects (Telegram, WhatsApp, Slack, Discord), finds decisions, promises, ideas and open questions linked to their source messages, and reminds the right person before they are forgotten. Privacy-first (announces itself, per-team encryption, 90-day retention). Next.js, Supabase and the Claude API; web dashboard with a 3D memory map and a Claude connector; 324 automated tests.
+- [Team Memory](https://www.teammemory.online): Own product, built by directing AI coding tools; live since October 2026, early stage. AI that reads the group chats a team connects (Telegram, WhatsApp, Slack, Discord), finds decisions, promises, ideas and open questions linked to their source messages, and reminds the right person before they are forgotten. Its assistant works from the user's own WhatsApp or Telegram: with Plans, the user says who does what by when, Claude writes the messages for the group or for each person, the user approves them before they go out, and it follows up until every task is done; it can also answer simple questions in the user's own style, always marked as written by the assistant. Privacy-first (announces itself, per-team encryption, 90-day retention). Next.js, Supabase and the Claude API; web dashboard with a 3D memory map and a Claude connector; 401 automated tests.
 - [AI Customer Assistant](https://github.com/er369ai/ai-customer-assistant): Own product, working prototype (Oct 2026), built by directing Claude Code. AI that answers a small business's customers in Turkish, English, Russian and Persian from the business's own stock and prices, saves leads through LLM tool use and reminds the owner about uncalled leads. Editions for car galleries and estate agencies. Python and the Claude API; 62 automated checks and an end-to-end browser test.
 - [KibRide](https://kktc.kibride.com): Ride-hailing platform for North Cyprus, live on the App Store and Google Play (com.kibride.passenger.android). Worked on it as Mobile Developer at RingosTechnology. Kotlin Multiplatform with shared Android/iOS logic, Firebase Auth, Firestore, real-time trip tracking between passenger and driver.
 - [Automech](https://auto-mate-landing.vercel.app): Mechanic marketplace live on Google Play in Cyprus, Greece, Estonia, Latvia, Lithuania and Germany (app.automateonline.user). Contract Frontend & UI/UX Developer: designed and deployed the product site in React/Next.js/Tailwind, and delivered the UI/UX for the consumer and mechanic apps and the Instagram launch content.
