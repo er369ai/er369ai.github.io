@@ -32,6 +32,8 @@
   .ttl span { font-weight: 400; color: #576574; }
   .meta { font-size: 8.4pt; color: #8395a7; white-space: nowrap; }
   .item p { font-size: 9.1pt; color: #3d4852; margin-top: .8mm; }
+  .item ul { margin: .9mm 0 0 4.6mm; }
+  .item li { font-size: 9.1pt; color: #3d4852; margin-bottom: .5mm; }
   .lnk { color: #0f7b6c; text-decoration: none; }
 
   .sk { display: grid; grid-template-columns: 27mm 1fr; gap: 1.4mm 3mm; font-size: 9pt; }
@@ -57,7 +59,7 @@
     main { padding: 8mm 7mm; }
     h1 { font-size: 28pt; }
     .role { font-size: 13pt; }
-    .summary, .item p { font-size: 11.4pt; }
+    .summary, .item p, .item li { font-size: 11.4pt; }
     .ttl { font-size: 12pt; }
     .hd { flex-direction: column; gap: 0; }
     .meta { font-size: 10.4pt; white-space: normal; }
@@ -66,22 +68,21 @@
     .sk b { margin-top: 3mm; }
   }
 
-
-
-
-
   /* One page, but FILLED. The earlier squeeze was set when the entries were much
      longer; after the rewrite it left a quarter of the sheet blank. Screen and
      mobile rules above are untouched. */
   @media print {
-    .item    { margin-bottom: 1.5mm; }
-    main h2  { margin: 2.3mm 0 1.5mm; font-size: 9.3pt; }
-    main     { padding: 8mm 9mm; }
-    body     { line-height: 1.32; font-size: 9.3pt; }
-    .item p  { font-size: 9.1pt; margin-top: 0.8mm; }
-    .summary { font-size: 9.5pt; margin-bottom: 3.6mm; line-height: 1.45; }
-    .sk      { font-size: 9.2pt; gap: 1.6mm 3mm; }
-    .ttl     { font-size: 10.3pt; }
+    .sheet   { min-height: 294mm; }
+    .item    { margin-bottom: 1.3mm; }
+    .item ul { margin-top: .5mm; margin-left: 4.2mm; }
+    .item li { margin-bottom: .25mm; }
+    main h2  { margin: 2.1mm 0 1.3mm; font-size: 9.2pt; }
+    main     { padding: 7mm 8.5mm; }
+    body     { line-height: 1.26; font-size: 9pt; }
+    .item p, .item li { font-size: 8.9pt; margin-top: .6mm; }
+    .summary { font-size: 9.2pt; margin-bottom: 2.8mm; line-height: 1.4; }
+    .sk      { font-size: 8.9pt; gap: 1.1mm 2.6mm; grid-template-columns: 22mm 1fr; }
+    .ttl     { font-size: 10pt; }
   }
 </style>
 
@@ -94,119 +95,128 @@
     <h2>Contact</h2>
     <div class="k">Phone</div><div class="v">+90 539 138 45 76</div>
     <div class="k">Email</div><div class="v">erfan.boostan@gmail.com</div>
-    <div class="k">Location</div><div class="v">Nicosia, Cyprus<br>Open to relocation (EU) · Remote</div>
+    <div class="k">Location</div><div class="v">Nicosia, Cyprus<br>Open to remote contract and full-time roles, and to relocation</div>
 
     <h2>Links</h2>
+    <div class="k">Portfolio</div><div class="v"><a href="https://er369ai.github.io">er369ai.github.io</a></div>
     <div class="k">GitHub</div><div class="v"><a href="https://github.com/er369ai">github.com/er369ai</a></div>
     <div class="k">LinkedIn</div><div class="v"><a href="https://www.linkedin.com/in/erfan-boostan-6a67191b8">linkedin.com/in/erfan-boostan-6a67191b8</a></div>
+    <div class="k">Team Memory</div><div class="v"><a href="https://www.teammemory.online">teammemory.online</a></div>
     <div class="k">KibRide</div><div class="v"><a href="https://kktc.kibride.com">kktc.kibride.com</a></div>
     <div class="k">Automech</div><div class="v"><a href="https://auto-mate-landing.vercel.app">auto-mate-landing.vercel.app</a></div>
     <div class="k">Vibe Quest</div><div class="v"><a href="https://vibequest-ten.vercel.app">vibequest-ten.vercel.app</a></div>
-    <div class="k">Website</div><div class="v"><a href="https://ringostechnology.com">ringostechnology.com</a></div>
-    <div class="k">Team Memory</div><div class="v"><a href="https://www.teammemory.online">teammemory.online</a></div>
     <div class="k">AI Assistant</div><div class="v"><a href="https://github.com/er369ai/ai-customer-assistant">github.com/er369ai/ai-customer-assistant</a></div>
     <div class="k">Demo</div><div class="v"><a href="https://er369ai.github.io/galeri/">er369ai.github.io/galeri</a></div>
 
     <h2>Languages</h2>
     <p><b>Persian</b> — Native</p>
-    <p><b>English</b> — Advanced (C1 EF SET; B2, Warsaw University of Technology)</p>
-    <p><b>Turkish</b> — Basic (I read it; I am not conversational yet)</p>
-    <p><b>German</b> — Beginner, actively learning</p>
+    <p><b>English</b> — C1</p>
+    <p><b>Turkish</b> — Basic</p>
+    <p><b>German</b> — Learning</p>
   </aside>
 
   <main>
     <h1>Erfan<br>Boostan</h1>
-    <div class="role">AI Product Engineer</div>
+    <div class="role">AI Product Engineer · Mobile &amp; Web Developer</div>
 
     <p class="summary">
-      I build and ship complete AI products. I founded <b>Team Memory</b> (teammemory.online), an AI that tracks the decisions and promises in a team's chats across Telegram, WhatsApp, Slack and Discord, built on Next.js, Supabase and the Claude API. I also shipped <b>KibRide</b>, a ride-hailing app live on the App Store and Google Play, and built the frontend for <b>Automech</b>, a mechanic marketplace used in six countries. I work by directing AI coding tools, and I test what they give me before trusting it.
+      AI product engineer who takes products from idea to launch. Shipped two apps to the App Store and
+      Google Play, and built the frontend for a marketplace used in six countries. Built my own AI products
+      end to end using the Claude API and AI-assisted development. Strong in Kotlin Multiplatform,
+      React/Next.js, Expo and Supabase, with a focus on testing and shipping.
     </p>
 
     <h2>Experience</h2>
 
     <div class="item">
       <div class="hd">
-        <div class="ttl">Team Memory — <span>Founder &amp; Builder</span></div>
-        <div class="meta">2026 – present · live, early stage</div>
+        <div class="ttl">Mobile Developer — <span>RingosTechnology</span></div>
+        <div class="meta">Jan 2026 – May 2026</div>
       </div>
-      <p>I built and launched an AI that takes notes in a team's group chats on Telegram, WhatsApp, Slack and Discord. It finds decisions, promises, ideas and open questions, links each one to the message it came from, and reminds the right person before something slips: in the group, privately, or in the owner's weekly roundup, and never at night. Its assistant works from the user's own WhatsApp or Telegram: with Plans, the user says who does what by when, Claude writes the messages, the user approves them before they go out, and it follows up until every task is done. I designed it to be trusted with private chats: it announces itself in every chat, anyone can hide a message, each team's messages are encrypted with their own key, raw chats are deleted after 90 days, and it tracks topics, never individual productivity. Next.js, Supabase and the Claude API, with a 3D memory map, a Claude connector and 401 automated tests. <a class="lnk" href="https://www.teammemory.online">teammemory.online</a></p>
+      <p>KibRide, ride-hailing platform for North Cyprus. Live on the App Store and Google Play.</p>
+      <ul>
+        <li>Built separate passenger and driver apps in Kotlin Multiplatform, sharing business logic across Android and iOS.</li>
+        <li>Implemented Firebase authentication, Firestore data model and real-time ride tracking between passenger and driver.</li>
+        <li>Built and deployed the marketing site on a custom domain.</li>
+      </ul>
     </div>
 
     <div class="item">
       <div class="hd">
-        <div class="ttl">RingosTechnology — <span>Mobile Developer</span></div>
+        <div class="ttl">Frontend &amp; UI/UX Developer <span>(contract)</span> — <span>Automech</span></div>
         <div class="meta"></div>
       </div>
-      <p>I built <b>KibRide</b>, a ride-hailing app for North Cyprus, and shipped it to the App Store and Google Play (<i>com.kibride.passenger.android</i>). Kotlin Multiplatform for the code shared between Android and iOS, Firebase for the backend — sign-in, the database, and live ride tracking. Separate apps for passengers and drivers, plus the website. I wrote nearly all of it, between January and May 2026.</p>
+      <p>Mechanic marketplace live in Cyprus, Greece, Estonia, Latvia, Lithuania and Germany.</p>
+      <ul>
+        <li>Designed and deployed the responsive product site in React, Next.js and Tailwind CSS.</li>
+        <li>Delivered UI/UX for both consumer and mechanic apps: two user types, one consistent design system.</li>
+        <li>Designed launch content for the brand's Instagram campaign.</li>
+      </ul>
+    </div>
+
+    <h2>Products</h2>
+
+    <div class="item">
+      <div class="hd">
+        <div class="ttl">Team Memory — <span>Founder &amp; Engineer</span></div>
+        <div class="meta">Launched Oct 2026</div>
+      </div>
+      <p>AI that tracks decisions, promises and open questions in team chats on Telegram, WhatsApp, Slack
+         and Discord, and follows up until work is done. <a class="lnk" href="https://www.teammemory.online">teammemory.online</a></p>
+      <ul>
+        <li>Next.js, Supabase and Claude API; per-team encryption keys, 90-day data deletion.</li>
+        <li>401 automated tests; web dashboard and Claude connector.</li>
+      </ul>
     </div>
 
     <div class="item">
       <div class="hd">
-        <div class="ttl">Automech — <span>Frontend &amp; UI/UX Developer (contract)</span></div>
-        <div class="meta"></div>
+        <div class="ttl">Vibe Quest — <span>Founder &amp; Engineer</span></div>
       </div>
-      <p>A marketplace for finding mechanics, used in Cyprus, Greece, Estonia, Latvia, Lithuania and Germany (<i>app.automateonline.user</i>). I built the website and designed the interface for both apps — the one customers use and the one mechanics use. React, Next.js, Tailwind.</p>
+      <p>Social app for real-world quests with friends, with rewards backed by proof of presence.</p>
+      <ul>
+        <li>Expo (React Native) and Supabase/Postgres, with server-side XP, points and levels.</li>
+        <li>Three verification methods: time-limited QR codes, proximity vouching within 150 m, and partner-venue staff scans.</li>
+        <li>Group weekend plans with geofenced check-in, peer confirmation and automatic pot settlement.</li>
+      </ul>
     </div>
 
     <div class="item">
       <div class="hd">
-        <div class="ttl">Self-employed — <span>Real Estate Agent</span></div>
-        <div class="meta">2022 – 2023</div>
+        <div class="ttl">AI Customer Assistant</div>
       </div>
-      <p>Found my own clients and handled the negotiations myself.</p>
-    </div>
-
-    <h2>Projects</h2>
-
-    <div class="item">
-      <div class="hd">
-        <div class="ttl">AI Customer Assistant — <span>Builder</span></div>
-        <div class="meta">2026 · prototype</div>
-      </div>
-      <p>An AI that answers a small business's customers by itself, in Turkish, English, Russian and Persian, using only that business's own stock and prices. One version for car galleries, one for estate agents. When a customer is serious, it saves them as a lead with a summary for the owner, then keeps reminding the owner until someone calls back. Python and the Claude API (tool use, prompt caching). I built it by directing Claude Code. I tested the AI against 12 customer scenarios in four languages, including a low cash offer and a prompt-injection attempt: 11 passed first time and I fixed the one that failed. Plus 62 automated checks and a browser test. <a class="lnk" href="https://github.com/er369ai/ai-customer-assistant">github.com/er369ai/ai-customer-assistant</a></p>
+      <p>Answers a business's customers in Turkish, English, Russian and Persian using only its own stock and
+         rules, and captures leads. <a class="lnk" href="https://github.com/er369ai/ai-customer-assistant">github.com/er369ai/ai-customer-assistant</a></p>
+      <ul>
+        <li>Python, Claude API with tool use and prompt caching; 62 automated checks plus an end-to-end browser test.</li>
+      </ul>
     </div>
 
     <div class="item">
       <div class="hd">
-        <div class="ttl">Vibe Quest — <span>Founder &amp; Developer</span></div>
+        <div class="ttl">KKTC Web — <span>Lead generation tool</span></div>
       </div>
-      <p>My own project — an app for meeting people and swapping skills in Cyprus. Two apps, one for everyday users and one for professionals, built in Expo/React Native on Supabase, plus the website. The idea, the design and the code are all mine. Not published yet.</p>
-    </div>
-
-    <div class="item">
-      <div class="hd">
-        <div class="ttl">KKTC Web — <span>Own website service</span></div>
-      </div>
-      <p>A fixed-price, one-week website service for small businesses in North Cyprus. To find clients for it, I built a Python outreach tool. It collects businesses from listing sites, cleans up the contact details and checks my own WhatsApp history so nobody gets messaged twice (about 3,400 businesses so far). It drafts a message for each business with the Claude API, based on what that business sells, and I review and send every one myself. <a class="lnk" href="https://kktcweb-er369ais-projects.vercel.app">kktcweb-er369ais-projects.vercel.app</a></p>
+      <ul>
+        <li>Python tool that collected and cleaned about 3,400 local business contacts and drafted personalised outreach with the Claude API.</li>
+      </ul>
     </div>
 
     <h2>Skills</h2>
     <div class="sk">
-      <b>Mobile</b><div>Kotlin · Kotlin Multiplatform (KMP) · Expo / React Native · App Store &amp; Google Play releases</div>
-      <b>Web</b><div>React · Next.js · TypeScript / JavaScript · Tailwind CSS · Responsive UI/UX design</div>
-      <b>Backend &amp; Cloud</b><div>Firebase (Authentication, Firestore, real-time data) · REST APIs · Python · Git · Vercel</div>
-      <b>AI &amp; Automation</b><div>Building with LLM APIs in live apps · web scraping · browser automation · automating repetitive work</div>
-      <b>Also</b><div>C# · C++ · Pandas · data cleaning and analysis</div>
+      <b>Mobile</b><div>Kotlin · Kotlin Multiplatform · Expo / React Native · App Store and Google Play releases</div>
+      <b>Web</b><div>React · Next.js · TypeScript · Tailwind CSS</div>
+      <b>Backend</b><div>Supabase / Postgres · Firebase · REST APIs · Python · Git · Vercel</div>
+      <b>AI</b><div>Claude API (tool use, prompt caching) · LLM integration · AI-assisted development with Claude Code</div>
+      <b>Design</b><div>UI/UX for mobile and web · Figma</div>
     </div>
 
     <h2>Education</h2>
     <div class="item">
       <div class="hd">
-        <div class="ttl">Cyprus International University — <span>BSc, in progress</span></div>
+        <div class="ttl">BSc AI Engineering <span>(in progress)</span></div>
         <div class="meta">2023 – present</div>
       </div>
-    </div>
-    <div class="item">
-      <div class="hd">
-        <div class="ttl">Warsaw University of Technology — <span>Foundation Year</span></div>
-        <div class="meta">2020 – 2021</div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="hd">
-        <div class="ttl">Georgian-American School Progress — <span>High School</span></div>
-        <div class="meta">2018 – 2020</div>
-      </div>
+      <p>Cyprus International University, Nicosia</p>
     </div>
   </main>
 </div>
